@@ -439,6 +439,91 @@ let$ age := ::to_int(age_str)
 ::print "You are @s years old" (age)</code></pre>
             </div>
         </section>
+
+        <section class="section">
+            <h2>Exception Handling</h2>
+            <p>Exception handling allows your program to gracefully handle errors and unexpected situations. Instead of crashing, your program can catch errors, handle them appropriately, and continue running or exit cleanly.</p>
+
+            <h3>Try/Catch/Finally</h3>
+            <p>The try-catch-finally structure provides a robust way to handle exceptions:</p>
+            <ul>
+                <li><strong>try$</strong>: Contains code that might throw an exception</li>
+                <li><strong>catch$</strong>: Handles any exceptions that occur in the try block</li>
+                <li><strong>finally$</strong>: Always executes, regardless of whether an exception occurred</li>
+            </ul>
+
+            <div class="code-block">
+                <pre><code>try$ {
+    let$result := 10 / 0;  # Division by zero
+} catch$ {
+    ::print "Error caught"
+} finally$ {
+    ::print "Cleanup"
+}</code></pre>
+            </div>
+
+            <h3>Custom Exceptions</h3>
+            <p>You can throw custom exceptions using the throw$ keyword to signal specific error conditions:</p>
+
+            <div class="code-block">
+                <pre><code>try$ {
+    throw$ "Custom error message"
+} catch$ {
+    ::print "Caught custom exception"
+}</code></pre>
+            </div>
+
+            <h3>Exception Handling Best Practices</h3>
+            <ul>
+                <li>Use specific error messages to help with debugging</li>
+                <li>Always include cleanup code in the finally$ block</li>
+                <li>Don't catch exceptions unless you can handle them meaningfully</li>
+                <li>Use custom exceptions to signal specific error conditions</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Lambda Expressions</h2>
+            <p>Lambda expressions (also called anonymous functions) are a concise way to create small functions without formally declaring them. They're perfect for short operations that you need to pass to other functions or use temporarily.</p>
+
+            <h3>Basic Syntax</h3>
+            <p>Lambda expressions use the arrow (=>) syntax to separate parameters from the function body:</p>
+
+            <div class="code-block">
+                <pre><code>(parameters) => expression</code></pre>
+            </div>
+
+            <h3>Lambda Examples</h3>
+            <div class="code-block">
+                <pre><code># Function with two parameters
+let$add := (x, y) => x + y
+
+# Function with one parameter
+let$double := (x) => x * 2
+
+# Function with no parameters
+let$hello := () => "Hello World"</code></pre>
+            </div>
+
+            <h3>Using Lambda Functions</h3>
+            <div class="code-block">
+                <pre><code># Call lambda functions like regular functions
+let$sum := add(5, 3)        # Returns 8
+let$doubled := double(4)    # Returns 8
+let$greeting := hello()     # Returns "Hello World"</code></pre>
+            </div>
+
+            <h3>When to Use Lambdas</h3>
+            <ul>
+                <li>For simple, one-line functions</li>
+                <li>When you need a function temporarily</li>
+                <li>For callback functions and event handlers</li>
+                <li>With higher-order functions that accept functions as parameters</li>
+            </ul>
+
+            <h3>Lambda vs Regular Functions</h3>
+            <p>Use lambdas for simple expressions and regular functions for complex logic with multiple statements.</p>
+        </section>
     </main>
 
     <footer class="footer">
