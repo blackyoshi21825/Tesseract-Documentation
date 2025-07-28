@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Tesseract Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" id="logo-link">
+                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                </a>
+                <a href="index.html" style="text-decoration: none; color: white;">
+                    <h1>Tesseract</h1>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="getting-started.html" class="active">Getting Started</a>
+                <a href="syntax.html">Syntax</a>
+                <a href="temporal.html">Temporal</a>
+                <a href="data-structures.html">Data Structures</a>
+                <a href="functions.html">Functions</a>
+                <a href="examples.html">Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Getting Started</h1>
+
+        <section class="section">
+            <h2>Installation and Setup</h2>
+            
+            <h3>System Requirements</h3>
+            <ul>
+                <li>GCC compiler</li>
+                <li>Make build tools</li>
+                <li>libcurl development libraries</li>
+                <li>Unix-like environment (Mac/Linux/WSL for Windows)</li>
+            </ul>
+
+            <h3>Platform-Specific Dependencies</h3>
+            
+            <h4>Ubuntu/Debian:</h4>
+            <div class="code-block">
+                <pre><code>sudo apt-get install libcurl4-openssl-dev</code></pre>
+            </div>
+
+            <h4>Fedora/RHEL:</h4>
+            <div class="code-block">
+                <pre><code>sudo dnf install libcurl-devel</code></pre>
+            </div>
+
+            <h4>macOS (Homebrew):</h4>
+            <div class="code-block">
+                <pre><code>brew install curl</code></pre>
+            </div>
+
+            <h4>Windows (MSYS2):</h4>
+            <div class="code-block">
+                <pre><code>pacman -S mingw-w64-x86_64-curl</code></pre>
+            </div>
+
+            <h3>Build Instructions</h3>
+            <div class="code-block">
+                <pre><code>make        # Standard build with precompiled headers
+make clear  # Build and run test suite</code></pre>
+            </div>
+
+            <h3>Debug Build (Linux)</h3>
+            <div class="code-block">
+                <pre><code>gcc -g -o tesser src/*.c -Iinclude -lm -lcurl</code></pre>
+            </div>
+
+            <h3>Performance Optimization</h3>
+            <p>Precompiled headers for faster compilation:</p>
+            <div class="code-block">
+                <pre><code># Linux/macOS
+make pch
+
+# Windows
+run generate_pch.bat</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Language Fundamentals</h2>
+            
+            <h3>Fundamental Rules</h3>
+            <ul>
+                <li>All statements terminate with semicolons</li>
+                <li>Code blocks enclosed in curly braces {}</li>
+                <li>Comments begin with # symbol</li>
+                <li>Case-sensitive identifiers</li>
+                <li>Whitespace-insensitive (except in strings)</li>
+            </ul>
+
+            <h3>Your First Tesseract Program</h3>
+            <div class="code-block">
+                <pre><code># hello.tesseract
+::print "Hello, Tesseract!"</code></pre>
+            </div>
+
+            <h3>Basic Variable Declaration</h3>
+            <div class="code-block">
+                <pre><code>let$ name := "Alice"
+let$ age := 25
+let$ height := 5.8
+let$ is_student := true
+
+::print "Name: @s, Age: @s" (name, age)</code></pre>
+            </div>
+
+            <h3>Simple Function</h3>
+            <div class="code-block">
+                <pre><code>func$ greet(name) => {
+    ::print "Hello, @s!" (name)
+}
+
+greet("World")</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Key Features Overview</h2>
+            
+            <h3>Language Features</h3>
+            <ul>
+                <li>Dynamic typing system</li>
+                <li>Object-oriented programming with classes</li>
+                <li>Functional programming support</li>
+                <li>Pattern matching capabilities</li>
+                <li>Comprehensive control structures</li>
+                <li>Advanced data structures</li>
+                <li>File I/O operations</li>
+                <li>HTTP web request capabilities</li>
+                <li>Regular expression support</li>
+                <li>Import system for modular programming</li>
+                <li>Revolutionary temporal programming</li>
+            </ul>
+
+            <h3>Data Types</h3>
+            <ul>
+                <li>Numbers (integers and floating-point)</li>
+                <li>Strings with formatting support</li>
+                <li>Booleans with logical operations</li>
+                <li>Lists (dynamic arrays)</li>
+                <li>Dictionaries (key-value pairs)</li>
+                <li>Stacks (LIFO data structure)</li>
+                <li>Queues (FIFO data structure)</li>
+                <li>Linked Lists</li>
+                <li>Regular Expressions</li>
+                <li>Temporal Variables</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Import System</h2>
+            
+            <h3>Import Statement</h3>
+            <div class="code-block">
+                <pre><code>import$ "filename.tesseract"</code></pre>
+            </div>
+
+            <h3>Import Examples</h3>
+            <div class="code-block">
+                <pre><code>import$ "utilities.tesseract"
+import$ "lib/math.tesseract"
+import$ "../shared/common.tesseract"</code></pre>
+            </div>
+
+            <h3>Module Organization</h3>
+            <ul>
+                <li>Relative paths from current file</li>
+                <li>Supports nested directory structures</li>
+                <li>Executes imported file in current context</li>
+            </ul>
+
+            <h3>Library Structure Example</h3>
+            
+            <h4>math.tesseract:</h4>
+            <div class="code-block">
+                <pre><code>func$ square(x) => {
+    x * x
+}
+
+func$ cube(x) => {
+    x * x * x
+}
+
+func$ factorial(n) => {
+    n <= 1 ? 1 : n * factorial(n - 1)
+}</code></pre>
+            </div>
+
+            <h4>main.tesseract:</h4>
+            <div class="code-block">
+                <pre><code>import$ "math.tesseract"
+
+let$ num := 5
+::print "Square: @s" (square(num))
+::print "Cube: @s" (cube(num))
+::print "Factorial: @s" (factorial(num))</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Best Practices</h2>
+            
+            <h3>Code Organization</h3>
+            <ul>
+                <li>Use meaningful variable and function names</li>
+                <li>Group related functionality into classes</li>
+                <li>Separate concerns into different files</li>
+                <li>Use imports for code reusability</li>
+            </ul>
+
+            <h3>Performance Considerations</h3>
+            <ul>
+                <li>Minimize nested loops where possible</li>
+                <li>Use appropriate data structures for the task</li>
+                <li>Close file handles promptly</li>
+                <li>Avoid unnecessary string conversions</li>
+            </ul>
+
+            <h3>Memory Management</h3>
+            <ul>
+                <li>Variables are automatically managed</li>
+                <li>File handles should be explicitly closed</li>
+                <li>Large data structures are handled efficiently</li>
+            </ul>
+
+            <h3>Error Prevention</h3>
+            <ul>
+                <li>Validate input parameters</li>
+                <li>Check file operations success</li>
+                <li>Use ternary operators for safe operations</li>
+                <li>Implement bounds checking for arrays</li>
+            </ul>
+
+            <h3>Security Practices</h3>
+            <ul>
+                <li>Validate all external input</li>
+                <li>Use HTTPS for web requests</li>
+                <li>Sanitize file paths</li>
+                <li>Implement proper authentication</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Language Limitations</h2>
+            
+            <h3>Current Constraints</h3>
+            <ul>
+                <li>Maximum 4 parameters per function</li>
+                <li>No error recovery mechanism</li>
+                <li>Limited standard library</li>
+                <li>Platform-dependent compilation</li>
+            </ul>
+
+            <h3>Future Considerations</h3>
+            <ul>
+                <li>Enhanced error handling</li>
+                <li>Expanded standard library</li>
+                <li>Cross-platform compatibility</li>
+                <li>Performance optimizations</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tesseract Programming Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

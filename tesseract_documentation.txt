@@ -1,0 +1,1153 @@
+TESSERACT PROGRAMMING LANGUAGE - COMPREHENSIVE DOCUMENTATION
+
+WHAT IS TESSERACT?
+==================
+
+Tesseract is a modern interpreted programming language that bridges the gap between simplicity and functionality. Named after the four-dimensional geometric shape, Tesseract represents a multi-dimensional approach to programming - offering depth in features while maintaining surface-level simplicity.
+
+Unlike compiled languages such as C++ or Java, Tesseract is interpreted, meaning your code is executed directly without a separate compilation step. This makes development faster and more interactive, similar to Python or JavaScript, but with its own unique syntax and feature set.
+
+WHY TESSERACT?
+==============
+
+Tesseract was designed to address common frustrations in modern programming:
+
+**Simplicity Over Complexity**: Many languages become bloated with features that most developers never use. Tesseract focuses on providing exactly what you need for most programming tasks without unnecessary complexity.
+
+**Readable Syntax**: The language uses intuitive symbols and keywords. For example, variables are declared with `let$` and functions with `func$`, making code self-documenting.
+
+**Built-in Modern Features**: Rather than requiring external libraries for common tasks like HTTP requests or regular expressions, Tesseract includes these capabilities natively.
+
+**Dynamic Yet Structured**: While variables don't need type declarations, the language still provides structure through classes, functions, and clear scoping rules.
+
+CORE PHILOSOPHY
+===============
+
+Tesseract operates on several key principles:
+
+**Explicit Intent**: Every operation should be clear in its purpose. The `::` prefix for built-in functions immediately identifies system operations versus user-defined functions.
+
+**Minimal Syntax Overhead**: You shouldn't need to write boilerplate code. Variable declarations, function definitions, and class creation are streamlined.
+
+**Practical Data Structures**: Beyond basic types, Tesseract includes stacks, queues, and linked lists as first-class citizens because these are fundamental to many programming tasks.
+
+**Modern Connectivity**: In today's connected world, HTTP requests and file operations are essential, so they're built into the language core.
+
+KEY FEATURES
+============
+
+Language Features:
+- Dynamic typing system
+- Object-oriented programming with classes
+- Functional programming support
+- Pattern matching capabilities
+- Comprehensive control structures
+- Advanced data structures
+- File I/O operations
+- HTTP web request capabilities
+- Regular expression support
+- Import system for modular programming
+
+Data Types:
+- Numbers (integers and floating-point)
+- Strings with formatting support
+- Booleans with logical operations
+- Lists (dynamic arrays)
+- Dictionaries (key-value pairs)
+- Stacks (LIFO data structure)
+- Queues (FIFO data structure)
+- Linked Lists
+- Regular Expressions
+
+INSTALLATION AND SETUP
+======================
+
+System Requirements:
+- GCC compiler
+- Make build tools
+- libcurl development libraries
+- Unix-like environment (Mac/Linux/WSL for Windows)
+
+Platform-Specific Dependencies:
+
+Ubuntu/Debian:
+sudo apt-get install libcurl4-openssl-dev
+
+Fedora/RHEL:
+sudo dnf install libcurl-devel
+
+macOS (Homebrew):
+brew install curl
+
+Windows (MSYS2):
+pacman -S mingw-w64-x86_64-curl
+
+Build Instructions:
+make        # Standard build with precompiled headers
+make clear  # Build and run test suite
+
+Debug Build (Linux):
+gcc -g -o tesser src/*.c -Iinclude -lm -lcurl
+
+Performance Optimization:
+- Precompiled headers for faster compilation
+- Linux/macOS: make pch
+- Windows: run generate_pch.bat
+
+LANGUAGE SYNTAX
+===============
+
+Fundamental Rules:
+- All statements terminate with semicolons
+- Code blocks enclosed in curly braces {}
+- Comments begin with # symbol
+- Case-sensitive identifiers
+- Whitespace-insensitive (except in strings)
+
+VARIABLES AND ASSIGNMENT
+========================
+
+In Tesseract, variables are containers that store data values. Unlike statically-typed languages, you don't need to declare what type of data a variable will hold - the language figures this out automatically based on the value you assign.
+
+The Variable Declaration Syntax:
+let$variable_name := value
+
+The `let$` keyword tells Tesseract you're creating a new variable. The `$` symbol is part of the syntax that distinguishes variable declarations from other statements. The `:=` operator performs the assignment.
+
+Why This Syntax?
+The `let$` prefix makes variable declarations immediately recognizable when reading code. The `:=` assignment operator (borrowed from languages like Go and Pascal) clearly indicates assignment versus comparison, reducing common programming errors.
+
+Examples with Explanations:
+let$x := 42                    # Creates an integer variable
+let$name := "Tesseract"         # Creates a string variable  
+let$pi := 3.14159              # Creates a floating-point variable
+let$is_active := true          # Creates a boolean variable
+
+Dynamic Typing in Action:
+let$data := 42                 # data is now a number
+let$data := "hello"            # data is now a string - this is allowed!
+
+Variable Naming Rules:
+- Must start with a letter (a-z, A-Z) or underscore (_)
+- Can contain letters, numbers, and underscores
+- Case-sensitive (myVar and myvar are different)
+- Cannot use reserved words (if, while, func, etc.)
+- Should be descriptive (use 'user_count' instead of 'uc')
+
+Best Practices:
+- Use snake_case for multi-word variables (user_name, total_count)
+- Choose descriptive names that explain the variable's purpose
+- Avoid single-letter names except for loop counters
+- Use boolean variable names that read like questions (is_valid, has_permission)
+
+OPERATORS
+=========
+
+Arithmetic Operators:
++ (addition)
+- (subtraction)
+* (multiplication)
+/ (division)
+% (modulo)
+
+Comparison Operators:
+== (equality)
+!= (inequality)
+< (less than)
+> (greater than)
+<= (less than or equal)
+>= (greater than or equal)
+
+Logical Operators:
+and (logical AND)
+or (logical OR)
+not (logical NOT)
+
+Bitwise Operators:
+& (bitwise AND)
+| (bitwise OR)
+^ (bitwise XOR)
+~ (bitwise NOT)
+
+Assignment Operators:
+:= (assignment)
+
+Ternary Operator:
+condition ? true_value : false_value
+
+CONTROL STRUCTURES
+==================
+
+Control structures are the decision-making components of your program. They determine which code executes based on conditions, allowing your program to respond dynamically to different situations.
+
+CONDITIONAL STATEMENTS
+======================
+
+Conditional statements allow your program to make decisions. Think of them as the "if-then" logic that humans use daily: "If it's raining, then take an umbrella."
+
+Basic If Statement:
+The simplest form tests a single condition and executes code only if that condition is true.
+
+if$ condition {
+    // code block executes only if condition is true
+}
+
+Real-world example:
+if$ temperature > 30 {
+    ::print "It's hot outside!"
+}
+
+If-Else Statement:
+This provides an alternative action when the condition is false - a "Plan B."
+
+if$ condition {
+    // executes when condition is true
+} else {
+    // executes when condition is false
+}
+
+Real-world example:
+if$ age >= 18 {
+    ::print "You can vote"
+} else {
+    ::print "You're too young to vote"
+}
+
+If-ElseIf-Else Chain:
+When you need to test multiple conditions in sequence, like a series of questions.
+
+if$ condition1 {
+    // first condition is true
+} elseif$ condition2 {
+    // first was false, second is true
+} elseif$ condition3 {
+    // first two were false, third is true
+} else {
+    // all conditions were false
+}
+
+Real-world example:
+if$ score >= 90 {
+    ::print "Grade: A"
+} elseif$ score >= 80 {
+    ::print "Grade: B"
+} elseif$ score >= 70 {
+    ::print "Grade: C"
+} else {
+    ::print "Grade: F"
+}
+
+Why the `$` in `if$` and `elseif$`?
+The dollar sign distinguishes Tesseract's control structures from variables or functions, making the code's structure immediately apparent when reading.
+
+Switch-Case Statement:
+switch$ expression {
+    case$ value1 {
+        // handle value1
+    }
+    case$ value2 {
+        // handle value2
+    }
+    case$ value3 {
+        // handle value3
+    }
+    default$ {
+        // default handling
+    }
+}
+
+LOOPS
+=====
+
+Loops are programming constructs that repeat a block of code multiple times. They're essential for tasks like processing lists of data, performing calculations multiple times, or continuing an operation until a condition is met.
+
+Tesseract provides two main types of loops: range-based loops (for counting) and condition-based loops (for continuing until something changes).
+
+RANGE-BASED LOOPS (FOR LOOPS)
+==============================
+
+Range-based loops are perfect when you know how many times you want to repeat something, or when you want to process a sequence of numbers.
+
+Basic Range Loop:
+loop$variable := start => end {
+    // loop body executes for each value from start to end
+}
+
+How it works:
+- The loop variable starts at the 'start' value
+- Each iteration, the variable increases by 1
+- The loop continues until the variable reaches the 'end' value (inclusive)
+- The loop body can access the current value through the loop variable
+
+Custom Increment Loop:
+loop$variable := start => end, increment {
+    // loop body with custom step size
+}
+
+The increment can be:
+- Positive numbers for counting up
+- Negative numbers for counting down  
+- Decimal numbers for fractional steps
+
+Why This Syntax?
+The `=>` arrow visually represents the direction and range of the loop. It's more intuitive than traditional C-style for loops and eliminates common off-by-one errors.
+
+Loop Examples:
+// Ascending loop
+loop$i := 1 => 10 {
+    ::print i
+}
+
+// Descending loop
+loop$i := 10 => 1, -1 {
+    ::print i
+}
+
+// Custom increment
+loop$i := 0 => 100, 5 {
+    ::print i
+}
+
+// Fractional increment
+loop$i := 0 => 1, 0.1 {
+    ::print i
+}
+
+While Loop:
+while$ condition {
+    // loop body
+}
+
+While Loop Examples:
+let$counter := 0
+while$ counter < 10 {
+    ::print counter
+    let$counter := counter + 1
+}
+
+FUNCTIONS
+=========
+
+Functions are reusable blocks of code that perform specific tasks. Think of them as mini-programs within your program. They take inputs (parameters), process them, and often return a result.
+
+Functions serve several important purposes:
+- **Code Reusability**: Write once, use many times
+- **Organization**: Break complex problems into smaller, manageable pieces
+- **Abstraction**: Hide implementation details behind a simple interface
+- **Testing**: Easier to test small, focused functions
+
+Function Anatomy:
+func$function_name(parameter1, parameter2, parameter3) => {
+    // function body - the code that does the work
+    // last expression is automatically returned
+}
+
+Breaking Down the Syntax:
+- `func$`: Declares this is a function definition
+- `function_name`: A descriptive name for what the function does
+- `(parameters)`: Input values the function needs to work
+- `=> {`: Arrow indicates the start of the function body
+- `}`: Closes the function definition
+
+Return Values:
+Unlike many languages that require explicit `return` statements, Tesseract automatically returns the value of the last expression in the function. This makes functions more concise and reduces boilerplate code.
+
+Why Functions Matter:
+Imagine you need to calculate the area of rectangles in multiple places in your program. Instead of writing the same calculation repeatedly, you create a function once and call it whenever needed.
+
+Function Examples:
+
+Simple Function:
+func$greet(name) => {
+    ::print "Hello, @s!" (name)
+}
+
+Function with Return Value:
+func$add(a, b) => {
+    a + b
+}
+
+Function with Multiple Parameters:
+func$calculate_area(length, width, height) => {
+    length * width * height
+}
+
+Recursive Function:
+func$factorial(n) => {
+    n <= 1 ? 1 : n * factorial(n - 1)
+}
+
+Function Calls:
+greet("Alice")
+let$sum := add(5, 3)
+let$volume := calculate_area(10, 5, 2)
+
+CLASSES AND OBJECTS
+===================
+
+Classes are blueprints for creating objects - they define what data an object can hold and what actions it can perform. Think of a class as a template or mold, and objects as the actual items created from that template.
+
+Why Use Classes?
+Classes help organize related data and functionality together. Instead of having separate variables for a person's name, age, and email scattered throughout your code, you can group them into a Person class.
+
+Object-Oriented Programming Benefits:
+- **Encapsulation**: Keep related data and functions together
+- **Reusability**: Create multiple objects from the same class
+- **Organization**: Structure complex programs logically
+- **Maintainability**: Changes to a class affect all objects uniformly
+
+Class Structure:
+class$ ClassName {
+    // Properties (data the object holds)
+    let$ property1 := default_value
+    let$ property2 := default_value
+    
+    // Constructor (sets up new objects)
+    func$ init(param1, param2) => {
+        let$ self.property1 := param1
+        let$ self.property2 := param2
+    }
+    
+    // Methods (actions the object can perform)
+    func$ method_name(parameters) => {
+        // method body
+    }
+}
+
+Key Concepts:
+
+**Properties**: Variables that belong to the object. Each object has its own copy of these values.
+
+**Constructor (init)**: A special function that runs when you create a new object. It sets up the object's initial state.
+
+**Methods**: Functions that belong to the class. They can access and modify the object's properties.
+
+**self**: A special keyword that refers to the current object. Use it to access the object's properties and methods.
+
+The Class-Object Relationship:
+If a class is like a cookie cutter, then objects are the individual cookies. Each cookie (object) has the same shape (properties and methods) but can have different decorations (property values).
+
+Complete Class Example:
+class$ BankAccount {
+    let$ owner := ""
+    let$ balance := 0
+    let$ account_number := ""
+    
+    func$ init(owner, initial_balance, account_number) => {
+        let$ self.owner := owner
+        let$ self.balance := initial_balance
+        let$ self.account_number := account_number
+    }
+    
+    func$ deposit(amount) => {
+        let$ self.balance := self.balance + amount
+        ::print "Deposited @s. New balance: @s" (amount, self.balance)
+    }
+    
+    func$ withdraw(amount) => {
+        if$ self.balance >= amount {
+            let$ self.balance := self.balance - amount
+            ::print "Withdrew @s. New balance: @s" (amount, self.balance)
+        } else {
+            ::print "Insufficient funds"
+        }
+    }
+    
+    func$ get_balance() => {
+        self.balance
+    }
+    
+    func$ display_info() => {
+        ::print "Account: @s" (self.account_number)
+        ::print "Owner: @s" (self.owner)
+        ::print "Balance: @s" (self.balance)
+    }
+}
+
+Object Usage:
+let$ account := BankAccount()
+account.init("John Doe", 1000, "ACC123456")
+account.display_info()
+account.deposit(500)
+account.withdraw(200)
+
+DATA STRUCTURES
+===============
+
+Data structures are specialized ways of organizing and storing data to make it easy to access and modify. Different structures are optimized for different types of operations. Choosing the right data structure can make your program much more efficient.
+
+LISTS (DYNAMIC ARRAYS)
+======================
+
+Lists are ordered collections of items, like a shopping list or a roster of names. They're one of the most versatile and commonly used data structures.
+
+What Makes Lists Special:
+- **Ordered**: Items have a specific position (index)
+- **Dynamic**: Can grow or shrink during program execution
+- **Flexible**: Can store different types of data in the same list
+- **Indexed**: Access items directly by their position
+
+Creation Examples:
+let$numbers := [1, 2, 3, 4, 5]           # List of integers
+let$names := ["Alice", "Bob", "Charlie"]   # List of strings
+let$mixed := [1, "hello", true, 3.14]     # Mixed data types
+
+When to Use Lists:
+- When you need to maintain order of items
+- When you need to access items by position
+- When the size of your collection changes during execution
+- When you need to iterate through all items
+
+Real-world Analogies:
+- A playlist of songs (ordered, can add/remove songs)
+- A line of people waiting (first in line is index 0)
+- A grocery list (items in order, can cross off completed items)
+
+Access:
+::print numbers[0]  // first element
+::print numbers[2]  // third element
+
+List Functions:
+::len(list)           // get length
+::append(list, item)  // add to end
+::prepend(list, item) // add to beginning
+::pop(list)           // remove last element
+
+List Examples:
+let$fruits := ["apple", "banana"]
+::append(fruits, "orange")
+::prepend(fruits, "grape")
+::print ::len(fruits)  // prints 4
+
+DICTIONARIES (KEY-VALUE PAIRS)
+==============================
+
+Dictionaries store data as key-value pairs, like a real dictionary where you look up a word (key) to find its definition (value). They're perfect when you need to associate pieces of information together.
+
+What Makes Dictionaries Useful:
+- **Fast Lookup**: Find values instantly by their key
+- **Meaningful Keys**: Use descriptive names instead of numeric indices
+- **Flexible**: Keys and values can be different data types
+- **Dynamic**: Add or remove key-value pairs as needed
+
+Creation Examples:
+let$person := dict{"name" := "Alice", "age" := 30, "city" := "New York"}
+let$scores := dict{"math" := 95, "science" := 87, "english" := 92}
+
+When to Use Dictionaries:
+- When you need to look up information by a meaningful identifier
+- When you're storing related attributes of something
+- When you need fast access to specific pieces of data
+- When the relationship between data is more important than order
+
+Real-world Analogies:
+- A phone book (name → phone number)
+- A student record (student ID → grades, contact info)
+- A configuration file (setting name → setting value)
+- A translation dictionary (English word → Spanish word)
+
+Dictionary Functions:
+::get(dict, key)        // retrieve value
+::set(dict, key, value) // set value
+::keys(dict)            // get all keys
+::values(dict)          // get all values
+
+Dictionary Examples:
+let$config := dict{"debug" := true, "port" := 8080}
+::print ::get(config, "port")
+::set(config, "host", "localhost")
+
+STACKS (LAST-IN-FIRST-OUT)
+===========================
+
+A stack is like a stack of plates - you can only add or remove plates from the top. This "Last-In-First-Out" (LIFO) behavior is useful for many programming tasks.
+
+How Stacks Work:
+Imagine a stack of books on your desk. When you add a new book, it goes on top. When you need a book, you take the top one. You can't easily grab a book from the middle without moving the ones above it.
+
+Creation:
+let$stack := <stack>
+
+Stack Operations:
+::push(stack, value)  # Add item to top (like placing a plate on the stack)
+::pop(stack)          # Remove and return top item (like taking the top plate)
+::peek(stack)         # Look at top item without removing it
+::size(stack)         # Count how many items are in the stack
+::empty(stack)        # Check if stack has no items (1=empty, 0=not empty)
+
+When to Use Stacks:
+- **Undo Operations**: Each action gets pushed; undo pops the last action
+- **Function Calls**: Programming languages use stacks to track function calls
+- **Expression Evaluation**: Converting mathematical expressions
+- **Backtracking**: Remembering previous states in problem-solving
+
+Real-world Examples:
+- Browser back button (last visited page first)
+- Undo/Redo in text editors
+- Call stack in programming (most recent function call handled first)
+- Stack of trays in a cafeteria
+
+Stack Example:
+let$call_stack := <stack>
+::push(call_stack, "main")
+::push(call_stack, "function_a")
+::push(call_stack, "function_b")
+::print ::peek(call_stack)  // prints "function_b"
+::pop(call_stack)
+::print ::size(call_stack)  // prints 2
+
+QUEUES (FIRST-IN-FIRST-OUT)
+============================
+
+A queue works like a line at a store - the first person in line is the first person served. This "First-In-First-Out" (FIFO) behavior ensures fairness and order.
+
+How Queues Work:
+Think of a line at a coffee shop. New customers join at the back of the line, and the barista serves customers from the front. No cutting in line allowed!
+
+Creation:
+let$queue := <queue>
+
+Queue Operations:
+::enqueue(queue, value)  # Add item to back of line (join the queue)
+::dequeue(queue)         # Remove and return front item (serve next customer)
+::front(queue)           # Look at front item without removing it
+::back(queue)            # Look at back item (last person in line)
+::isEmpty(queue)         # Check if queue is empty (1=empty, 0=not empty)
+::qsize(queue)           # Count how many items are waiting
+
+When to Use Queues:
+- **Task Processing**: Handle tasks in the order they arrive
+- **Print Jobs**: Documents print in the order they were submitted
+- **Web Requests**: Serve web requests fairly
+- **Breadth-First Search**: Explore data structures level by level
+
+Real-world Examples:
+- Waiting line at a bank or store
+- Print queue on a shared printer
+- Call center phone queue
+- Traffic at a single-lane bridge
+- Playlist that plays songs in order
+
+Queue Example:
+let$task_queue := <queue>
+::enqueue(task_queue, "task1")
+::enqueue(task_queue, "task2")
+::enqueue(task_queue, "task3")
+::print ::front(task_queue)    // prints "task1"
+::print ::dequeue(task_queue)  // prints "task1"
+::print ::qsize(task_queue)    // prints 2
+
+Linked Lists:
+
+Creation:
+let$linked_list := <linked>
+
+Linked List Operations:
+::ladd(list, value)      // add element
+::lremove(list, value)   // remove first occurrence
+::lget(list, index)      // get element at index
+::lsize(list)            // get element count
+::lisEmpty(list)         // check if empty (1=empty, 0=not empty)
+
+Linked List Example:
+let$student_ids := <linked>
+::ladd(student_ids, 1001)
+::ladd(student_ids, 1002)
+::ladd(student_ids, 1003)
+::print ::lget(student_ids, 1)  // prints 1002
+::lremove(student_ids, 1002)
+::print ::lsize(student_ids)    // prints 2
+
+REGULAR EXPRESSIONS
+===================
+
+Regular expressions (regex) are powerful pattern-matching tools that let you search, validate, and manipulate text. Think of them as a sophisticated "find and replace" system that can recognize complex patterns instead of just exact matches.
+
+What Are Regular Expressions?
+Imagine you need to find all email addresses in a document. Instead of searching for each specific email, you can create a pattern that describes what an email looks like: some characters, followed by @, followed by more characters, a dot, and a domain extension.
+
+Why Use Regular Expressions?
+- **Pattern Recognition**: Find text that matches a specific format
+- **Validation**: Check if input follows required rules (email format, phone numbers)
+- **Text Processing**: Extract specific information from large amounts of text
+- **Data Cleaning**: Remove or replace unwanted characters or formats
+
+Regular Expression Creation:
+let$regex := <regex> "pattern"//flags
+
+Breaking Down the Syntax:
+- `<regex>`: Tells Tesseract this is a regular expression
+- `"pattern"`: The pattern you're looking for
+- `//flags`: Optional modifiers that change how the pattern works
+
+Flags Explained:
+i - Case insensitive matching ("Hello" matches "hello", "HELLO", "HeLLo")
+g - Global matching (find ALL occurrences, not just the first one)
+
+Common Use Cases:
+- **Email Validation**: Ensure user entered a valid email format
+- **Phone Number Formatting**: Extract phone numbers from text
+- **Data Extraction**: Pull specific information from log files
+- **Input Sanitization**: Remove unwanted characters from user input
+- **Search and Replace**: Find complex patterns and replace them
+
+Regular Expression Operations:
+::rmatch(regex, text)              // test if pattern matches (1=match, 0=no match)
+::rfind_all(regex, text)           // find all match positions
+::rreplace(regex, text, replacement) // replace first match
+
+Regular Expression Examples:
+
+Email Validation:
+let$email_pattern := <regex> "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"//i
+let$email := "user@example.com"
+let$is_valid := ::rmatch(email_pattern, email)
+
+Phone Number Extraction:
+let$phone_pattern := <regex> "\d{3}-\d{3}-\d{4}"//g
+let$text := "Call me at 555-123-4567 or 555-987-6543"
+::rfind_all(phone_pattern, text)
+
+Text Replacement:
+let$word_pattern := <regex> "hello"//gi
+let$text := "Hello world, hello Tesseract"
+let$result := ::rreplace(word_pattern, text, "hi")
+
+STRING OPERATIONS
+=================
+
+String Formatting:
+::print "Hello @s" (name)
+::print "Value: @s, Count: @s" (value, count)
+
+Type Conversion:
+::to_str(number)    // convert number to string
+::to_int(string)    // convert string to number
+
+String Examples:
+let$age := 25
+let$age_str := ::to_str(age)
+::print "Age as string: @s" (age_str)
+
+let$number_str := "42"
+let$number := ::to_int(number_str)
+::print "Parsed number: @s" (number)
+
+Pattern Matching:
+::pattern_match(pattern, text)  // returns list of starting indices
+
+INPUT AND OUTPUT
+================
+
+Output:
+::print value
+::print "formatted @s" (value)
+
+Input:
+let$user_input := ::input("Enter value: ")
+
+Input/Output Examples:
+let$name := ::input("What's your name? ")
+::print "Hello, @s!" (name)
+
+let$age_str := ::input("How old are you? ")
+let$age := ::to_int(age_str)
+::print "You are @s years old" (age)
+
+FILE HANDLING
+=============
+
+File Modes:
+"r"   - Read (file must exist)
+"w"   - Write (creates new/overwrites existing)
+"a"   - Append (creates if doesn't exist)
+"r+"  - Read/Write (file must exist)
+"w+"  - Read/Write (creates new/overwrites existing)
+"a+"  - Read/Append (creates if doesn't exist)
+
+File Operations:
+::fopen(filename, mode)     // open file
+::fread(file_handle)        // read from file
+::fwrite(file_handle, data) // write to file
+::fclose(file_handle)       // close file
+
+File Handling Examples:
+
+Writing to File:
+let$file := ::fopen("output.txt", "w")
+::fwrite(file, "Hello, Tesseract!")
+::fwrite(file, "\nSecond line")
+::fclose(file)
+
+Reading from File:
+let$file := ::fopen("input.txt", "r")
+let$content := ::fread(file)
+::fclose(file)
+::print content
+
+Appending to File:
+let$log_file := ::fopen("log.txt", "a")
+::fwrite(log_file, "Log entry: Application started\n")
+::fclose(log_file)
+
+Configuration File Example:
+func$save_config(filename, config_dict) => {
+    let$file := ::fopen(filename, "w")
+    let$keys := ::keys(config_dict)
+    loop$i := 0 => ::len(keys) - 1 {
+        let$key := keys[i]
+        let$value := ::get(config_dict, key)
+        ::fwrite(file, "@s=@s\n" (key, value))
+    }
+    ::fclose(file)
+}
+
+HTTP WEB REQUESTS
+=================
+
+HTTP (HyperText Transfer Protocol) is the foundation of data communication on the World Wide Web. Tesseract's built-in HTTP functions let your programs communicate with web services, APIs, and websites - essentially allowing your code to "browse the internet" programmatically.
+
+What Are HTTP Requests?
+Every time you visit a website, your browser sends HTTP requests to web servers. When you click a link, submit a form, or load a page, you're making HTTP requests. Tesseract lets your programs do the same thing.
+
+Types of HTTP Requests:
+
+**GET Requests** - Retrieving Information:
+Used to fetch data from a server, like loading a web page or getting information from an API.
+
+::http_get(url)                    # Simple request
+::http_get(url, headers_dict)      # Request with custom headers
+
+Think of GET like asking a librarian for a specific book - you're requesting information without changing anything.
+
+**POST Requests** - Sending Information:
+Used to send data to a server, like submitting a form or creating a new user account.
+
+::http_post(url, data)                    # Send data
+::http_post(url, data, headers_dict)      # Send data with custom headers
+
+Think of POST like filling out a form and submitting it - you're providing information to be processed.
+
+**PUT Requests** - Updating Information:
+Used to update existing data on a server.
+
+**DELETE Requests** - Removing Information:
+Used to delete data from a server.
+
+Why HTTP Requests Matter:
+- **API Integration**: Connect to services like weather APIs, social media, payment processors
+- **Data Synchronization**: Upload or download data to/from cloud services
+- **Web Scraping**: Extract information from websites
+- **Microservices**: Enable different parts of your application to communicate
+
+Real-world Examples:
+- Getting current weather data from a weather service
+- Posting a message to social media
+- Uploading a file to cloud storage
+- Checking if a username is available
+- Processing online payments
+
+HTTP PUT Request:
+::http_put(url, data)
+::http_put(url, data, headers_dict)
+
+HTTP DELETE Request:
+::http_delete(url)
+::http_delete(url, headers_dict)
+
+HTTP Examples:
+
+Simple GET Request:
+let$response := ::http_get("https://api.example.com/users")
+::print response
+
+GET with Headers:
+let$headers := dict{"Authorization" := "Bearer token123", "User-Agent" := "Tesseract/1.0"}
+let$response := ::http_get("https://api.example.com/protected", headers)
+
+POST Request:
+let$user_data := "{\"name\": \"Alice\", \"email\": \"alice@example.com\"}"
+let$headers := dict{"Content-Type" := "application/json"}
+let$response := ::http_post("https://api.example.com/users", user_data, headers)
+
+API Integration Example:
+func$get_weather(city) => {
+    let$url := "https://api.weather.com/current?city=@s" (city)
+    let$headers := dict{"API-Key" := "your-api-key"}
+    let$response := ::http_get(url, headers)
+    response
+}
+
+let$weather := get_weather("New York")
+::print weather
+
+IMPORT SYSTEM
+=============
+
+Import Statement:
+import$ "filename.tesseract"
+
+Import Examples:
+import$ "utilities.tesseract"
+import$ "lib/math.tesseract"
+import$ "../shared/common.tesseract"
+
+Module Organization:
+- Relative paths from current file
+- Supports nested directory structures
+- Executes imported file in current context
+
+Library Structure Example:
+
+math.tesseract:
+func$square(x) => {
+    x * x
+}
+
+func$cube(x) => {
+    x * x * x
+}
+
+func$factorial(n) => {
+    n <= 1 ? 1 : n * factorial(n - 1)
+}
+
+main.tesseract:
+import$ "math.tesseract"
+
+let$num := 5
+::print "Square: @s" (square(num))
+::print "Cube: @s" (cube(num))
+::print "Factorial: @s" (factorial(num))
+
+ADVANCED PROGRAMMING PATTERNS
+=============================
+
+Error Handling Pattern:
+func$safe_divide(a, b) => {
+    b == 0 ? "Error: Division by zero" : a / b
+}
+
+Validation Pattern:
+func$validate_email(email) => {
+    let$pattern := <regex> "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"//i
+    ::rmatch(pattern, email) == 1 ? "Valid" : "Invalid"
+}
+
+Factory Pattern:
+func$create_user(type, name, email) => {
+    switch$ type {
+        case$ "admin" {
+            dict{"name" := name, "email" := email, "role" := "administrator", "permissions" := ["read", "write", "delete"]}
+        }
+        case$ "user" {
+            dict{"name" := name, "email" := email, "role" := "user", "permissions" := ["read"]}
+        }
+        default$ {
+            dict{"name" := name, "email" := email, "role" := "guest", "permissions" := []}
+        }
+    }
+}
+
+Iterator Pattern:
+func$process_list(list, processor) => {
+    loop$i := 0 => ::len(list) - 1 {
+        processor(list[i])
+    }
+}
+
+Configuration Management:
+class$ Config {
+    let$ settings := dict{}
+    
+    func$ init() => {
+        let$ self.settings := dict{"debug" := false, "port" := 8080, "host" := "localhost"}
+    }
+    
+    func$ load_from_file(filename) => {
+        let$ file := ::fopen(filename, "r")
+        let$ content := ::fread(file)
+        ::fclose(file)
+        // Parse configuration content
+    }
+    
+    func$ get(key) => {
+        ::get(self.settings, key)
+    }
+    
+    func$ set(key, value) => {
+        ::set(self.settings, key, value)
+    }
+}
+
+BEST PRACTICES
+==============
+
+Code Organization:
+- Use meaningful variable and function names
+- Group related functionality into classes
+- Separate concerns into different files
+- Use imports for code reusability
+
+Performance Considerations:
+- Minimize nested loops where possible
+- Use appropriate data structures for the task
+- Close file handles promptly
+- Avoid unnecessary string conversions
+
+Memory Management:
+- Variables are automatically managed
+- File handles should be explicitly closed
+- Large data structures are handled efficiently
+
+Error Prevention:
+- Validate input parameters
+- Check file operations success
+- Use ternary operators for safe operations
+- Implement bounds checking for arrays
+
+Security Practices:
+- Validate all external input
+- Use HTTPS for web requests
+- Sanitize file paths
+- Implement proper authentication
+
+DEBUGGING AND TROUBLESHOOTING
+=============================
+
+Common Issues:
+
+Syntax Errors:
+- Missing semicolons
+- Unmatched braces
+- Incorrect operator usage
+- Invalid variable names
+
+Runtime Errors:
+- Division by zero
+- Array index out of bounds
+- File not found
+- Network connectivity issues
+
+Debugging Techniques:
+- Use print statements for variable inspection
+- Check return values from functions
+- Validate input parameters
+- Test edge cases
+
+Performance Optimization:
+- Profile code execution
+- Optimize loop structures
+- Use efficient data structures
+- Minimize I/O operations
+
+LANGUAGE LIMITATIONS
+====================
+
+Current Constraints:
+- Maximum 4 parameters per function
+- No error recovery mechanism
+- Limited standard library
+- Platform-dependent compilation
+
+Future Considerations:
+- Enhanced error handling
+- Expanded standard library
+- Cross-platform compatibility
+- Performance optimizations
+
+EXAMPLES AND USE CASES
+======================
+
+Web Scraper:
+import$ "lib/http.tesseract"
+
+func$scrape_titles(url) => {
+    let$response := ::http_get(url)
+    let$title_pattern := <regex> "<title>(.*?)</title>"//i
+    ::rfind_all(title_pattern, response)
+}
+
+Data Processing Pipeline:
+func$process_data(filename) => {
+    let$file := ::fopen(filename, "r")
+    let$data := ::fread(file)
+    ::fclose(file)
+    
+    let$lines := split_lines(data)
+    let$processed := <stack>
+    
+    loop$i := 0 => ::len(lines) - 1 {
+        let$line := lines[i]
+        if$ ::len(line) > 0 {
+            ::push(processed, transform_line(line))
+        }
+    }
+    
+    processed
+}
+
+Configuration Manager:
+class$ AppConfig {
+    let$ config := dict{}
+    let$ config_file := "app.conf"
+    
+    func$ init(filename) => {
+        let$ self.config_file := filename
+        self.load()
+    }
+    
+    func$ load() => {
+        let$ file := ::fopen(self.config_file, "r")
+        let$ content := ::fread(file)
+        ::fclose(file)
+        self.parse_config(content)
+    }
+    
+    func$ save() => {
+        let$ file := ::fopen(self.config_file, "w")
+        let$ keys := ::keys(self.config)
+        loop$i := 0 => ::len(keys) - 1 {
+            let$ key := keys[i]
+            let$ value := ::get(self.config, key)
+            ::fwrite(file, "@s=@s\n" (key, value))
+        }
+        ::fclose(file)
+    }
+}
+
+Task Queue System:
+class$ TaskQueue {
+    let$ queue := <queue>
+    let$ running := false
+    
+    func$ init() => {
+        let$ self.queue := <queue>
+        let$ self.running := false
+    }
+    
+    func$ add_task(task) => {
+        ::enqueue(self.queue, task)
+    }
+    
+    func$ process_tasks() => {
+        let$ self.running := true
+        while$ self.running and ::isEmpty(self.queue) == 0 {
+            let$ task := ::dequeue(self.queue)
+            self.execute_task(task)
+        }
+    }
+    
+    func$ stop() => {
+        let$ self.running := false
+    }
+}
+
+CONCLUSION
+==========
+
+Tesseract provides a comprehensive programming environment suitable for various applications, from simple scripts to complex applications. Its combination of simplicity and power makes it an excellent choice for both learning programming concepts and building real-world solutions.
+
+The language continues to evolve, with ongoing improvements in performance, features, and usability. The active development ensures that Tesseract remains current with modern programming practices while maintaining its core philosophy of simplicity and readability.
+
+For the latest updates, examples, and community contributions, refer to the official Tesseract repository and documentation.

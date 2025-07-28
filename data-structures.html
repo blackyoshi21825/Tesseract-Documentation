@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures - Tesseract Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" id="logo-link">
+                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                </a>
+                <h1>Tesseract</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="getting-started.html">Getting Started</a>
+                <a href="syntax.html">Syntax</a>
+                <a href="temporal.html">Temporal</a>
+                <a href="data-structures.html" class="active">Data Structures</a>
+                <a href="functions.html">Functions</a>
+                <a href="examples.html">Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Data Structures</h1>
+
+        <section class="section">
+            <h2>Overview</h2>
+            <p>Data structures are specialized ways of organizing and storing data to make it easy to access and modify. Different structures are optimized for different types of operations. Choosing the right data structure can make your program much more efficient.</p>
+        </section>
+
+        <section class="section">
+            <h2>Lists (Dynamic Arrays)</h2>
+            <p>Lists are ordered collections of items, like a shopping list or a roster of names. They're one of the most versatile and commonly used data structures.</p>
+
+            <h3>What Makes Lists Special</h3>
+            <ul>
+                <li><strong>Ordered</strong>: Items have a specific position (index)</li>
+                <li><strong>Dynamic</strong>: Can grow or shrink during program execution</li>
+                <li><strong>Flexible</strong>: Can store different types of data in the same list</li>
+                <li><strong>Indexed</strong>: Access items directly by their position</li>
+            </ul>
+
+            <h3>Creation Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ numbers := [1, 2, 3, 4, 5]           # List of integers
+let$ names := ["Alice", "Bob", "Charlie"]   # List of strings
+let$ mixed := [1, "hello", true, 3.14]     # Mixed data types</code></pre>
+            </div>
+
+            <h3>When to Use Lists</h3>
+            <ul>
+                <li>When you need to maintain order of items</li>
+                <li>When you need to access items by position</li>
+                <li>When the size of your collection changes during execution</li>
+                <li>When you need to iterate through all items</li>
+            </ul>
+
+            <h3>Real-world Analogies</h3>
+            <ul>
+                <li>A playlist of songs (ordered, can add/remove songs)</li>
+                <li>A line of people waiting (first in line is index 0)</li>
+                <li>A grocery list (items in order, can cross off completed items)</li>
+            </ul>
+
+            <h3>Access</h3>
+            <div class="code-block">
+                <pre><code>::print numbers[0]  // first element
+::print numbers[2]  // third element</code></pre>
+            </div>
+
+            <h3>List Functions</h3>
+            <div class="code-block">
+                <pre><code>::len(list)           // get length
+::append(list, item)  // add to end
+::prepend(list, item) // add to beginning
+::pop(list)           // remove last element</code></pre>
+            </div>
+
+            <h3>List Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ fruits := ["apple", "banana"]
+::append(fruits, "orange")
+::prepend(fruits, "grape")
+::print ::len(fruits)  // prints 4</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Dictionaries (Key-Value Pairs)</h2>
+            <p>Dictionaries store data as key-value pairs, like a real dictionary where you look up a word (key) to find its definition (value). They're perfect when you need to associate pieces of information together.</p>
+
+            <h3>What Makes Dictionaries Useful</h3>
+            <ul>
+                <li><strong>Fast Lookup</strong>: Find values instantly by their key</li>
+                <li><strong>Meaningful Keys</strong>: Use descriptive names instead of numeric indices</li>
+                <li><strong>Flexible</strong>: Keys and values can be different data types</li>
+                <li><strong>Dynamic</strong>: Add or remove key-value pairs as needed</li>
+            </ul>
+
+            <h3>Creation Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ person := dict{"name" := "Alice", "age" := 30, "city" := "New York"}
+let$ scores := dict{"math" := 95, "science" := 87, "english" := 92}</code></pre>
+            </div>
+
+            <h3>When to Use Dictionaries</h3>
+            <ul>
+                <li>When you need to look up information by a meaningful identifier</li>
+                <li>When you're storing related attributes of something</li>
+                <li>When you need fast access to specific pieces of data</li>
+                <li>When the relationship between data is more important than order</li>
+            </ul>
+
+            <h3>Real-world Analogies</h3>
+            <ul>
+                <li>A phone book (name → phone number)</li>
+                <li>A student record (student ID → grades, contact info)</li>
+                <li>A configuration file (setting name → setting value)</li>
+                <li>A translation dictionary (English word → Spanish word)</li>
+            </ul>
+
+            <h3>Dictionary Functions</h3>
+            <div class="code-block">
+                <pre><code>::get(dict, key)        // retrieve value
+::set(dict, key, value) // set value
+::keys(dict)            // get all keys
+::values(dict)          // get all values</code></pre>
+            </div>
+
+            <h3>Dictionary Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ config := dict{"debug" := true, "port" := 8080}
+::print ::get(config, "port")
+::set(config, "host", "localhost")</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Stacks (Last-In-First-Out)</h2>
+            <p>A stack is like a stack of plates - you can only add or remove plates from the top. This "Last-In-First-Out" (LIFO) behavior is useful for many programming tasks.</p>
+
+            <h3>How Stacks Work</h3>
+            <p>Imagine a stack of books on your desk. When you add a new book, it goes on top. When you need a book, you take the top one. You can't easily grab a book from the middle without moving the ones above it.</p>
+
+            <h3>Creation</h3>
+            <div class="code-block">
+                <pre><code>let$ stack := &amp;lt;stack&amp;gt;</code></pre>
+            </div>
+
+            <h3>Stack Operations</h3>
+            <div class="code-block">
+                <pre><code>::push(stack, value)  # Add item to top (like placing a plate on the stack)
+::pop(stack)          # Remove and return top item (like taking the top plate)
+::peek(stack)         # Look at top item without removing it
+::size(stack)         # Count how many items are in the stack
+::empty(stack)        # Check if stack has no items (1=empty, 0=not empty)</code></pre>
+            </div>
+
+            <h3>When to Use Stacks</h3>
+            <ul>
+                <li><strong>Undo Operations</strong>: Each action gets pushed; undo pops the last action</li>
+                <li><strong>Function Calls</strong>: Programming languages use stacks to track function calls</li>
+                <li><strong>Expression Evaluation</strong>: Converting mathematical expressions</li>
+                <li><strong>Backtracking</strong>: Remembering previous states in problem-solving</li>
+            </ul>
+
+            <h3>Real-world Examples</h3>
+            <ul>
+                <li>Browser back button (last visited page first)</li>
+                <li>Undo/Redo in text editors</li>
+                <li>Call stack in programming (most recent function call handled first)</li>
+                <li>Stack of trays in a cafeteria</li>
+            </ul>
+
+            <h3>Stack Example</h3>
+            <div class="code-block">
+                <pre><code>let$ call_stack := &amp;lt;stack&amp;gt;
+::push(call_stack, "main")
+::push(call_stack, "function_a")
+::push(call_stack, "function_b")
+::print ::peek(call_stack)  // prints "function_b"
+::pop(call_stack)
+::print ::size(call_stack)  // prints 2</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Queues (First-In-First-Out)</h2>
+            <p>A queue works like a line at a store - the first person in line is the first person served. This "First-In-First-Out" (FIFO) behavior ensures fairness and order.</p>
+
+            <h3>How Queues Work</h3>
+            <p>Think of a line at a coffee shop. New customers join at the back of the line, and the barista serves customers from the front. No cutting in line allowed!</p>
+
+            <h3>Creation</h3>
+            <div class="code-block">
+                <pre><code>let$ queue := &amp;lt;queue&amp;gt;</code></pre>
+            </div>
+
+            <h3>Queue Operations</h3>
+            <div class="code-block">
+                <pre><code>::enqueue(queue, value)  # Add item to back of line (join the queue)
+::dequeue(queue)         # Remove and return front item (serve next customer)
+::front(queue)           # Look at front item without removing it
+::back(queue)            # Look at back item (last person in line)
+::isEmpty(queue)         # Check if queue is empty (1=empty, 0=not empty)
+::qsize(queue)           # Count how many items are waiting</code></pre>
+            </div>
+
+            <h3>When to Use Queues</h3>
+            <ul>
+                <li><strong>Task Processing</strong>: Handle tasks in the order they arrive</li>
+                <li><strong>Print Jobs</strong>: Documents print in the order they were submitted</li>
+                <li><strong>Web Requests</strong>: Serve web requests fairly</li>
+                <li><strong>Breadth-First Search</strong>: Explore data structures level by level</li>
+            </ul>
+
+            <h3>Real-world Examples</h3>
+            <ul>
+                <li>Waiting line at a bank or store</li>
+                <li>Print queue on a shared printer</li>
+                <li>Call center phone queue</li>
+                <li>Traffic at a single-lane bridge</li>
+                <li>Playlist that plays songs in order</li>
+            </ul>
+
+            <h3>Queue Example</h3>
+            <div class="code-block">
+                <pre><code>let$ task_queue := &amp;lt;queue&amp;gt;
+::enqueue(task_queue, "task1")
+::enqueue(task_queue, "task2")
+::enqueue(task_queue, "task3")
+::print ::front(task_queue)    // prints "task1"
+::print ::dequeue(task_queue)  // prints "task1"
+::print ::qsize(task_queue)    // prints 2</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Linked Lists</h2>
+            <p>Linked lists are dynamic data structures where elements are stored in nodes, and each node contains data and a reference to the next node. Unlike arrays, linked lists don't store elements in contiguous memory locations.</p>
+
+            <h3>Creation</h3>
+            <div class="code-block">
+                <pre><code>let$ linked_list := &amp;lt;linked&amp;gt;</code></pre>
+            </div>
+
+            <h3>Linked List Operations</h3>
+            <div class="code-block">
+                <pre><code>::ladd(list, value)      // add element
+::lremove(list, value)   // remove first occurrence
+::lget(list, index)      // get element at index
+::lsize(list)            // get element count
+::lisEmpty(list)         // check if empty (1=empty, 0=not empty)</code></pre>
+            </div>
+
+            <h3>Linked List Example</h3>
+            <div class="code-block">
+                <pre><code>let$ student_ids := &amp;lt;linked&amp;gt;
+::ladd(student_ids, 1001)
+::ladd(student_ids, 1002)
+::ladd(student_ids, 1003)
+::print ::lget(student_ids, 1)  // prints 1002
+::lremove(student_ids, 1002)
+::print ::lsize(student_ids)    // prints 2</code></pre>
+            </div>
+
+            <h3>When to Use Linked Lists</h3>
+            <ul>
+                <li>When you need frequent insertions and deletions</li>
+                <li>When the size of the data structure varies significantly</li>
+                <li>When you don't need random access to elements</li>
+                <li>When memory usage needs to be dynamic</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Regular Expressions</h2>
+            <p>Regular expressions (regex) are powerful pattern-matching tools that let you search, validate, and manipulate text. Think of them as a sophisticated "find and replace" system that can recognize complex patterns instead of just exact matches.</p>
+
+            <h3>What Are Regular Expressions?</h3>
+            <p>Imagine you need to find all email addresses in a document. Instead of searching for each specific email, you can create a pattern that describes what an email looks like: some characters, followed by @, followed by more characters, a dot, and a domain extension.</p>
+
+            <h3>Why Use Regular Expressions?</h3>
+            <ul>
+                <li><strong>Pattern Recognition</strong>: Find text that matches a specific format</li>
+                <li><strong>Validation</strong>: Check if input follows required rules (email format, phone numbers)</li>
+                <li><strong>Text Processing</strong>: Extract specific information from large amounts of text</li>
+                <li><strong>Data Cleaning</strong>: Remove or replace unwanted characters or formats</li>
+            </ul>
+
+            <h3>Regular Expression Creation</h3>
+            <div class="code-block">
+                <pre><code>let$ regex := &amp;lt;regex&amp;gt; "pattern"//flags</code></pre>
+            </div>
+
+            <h4>Breaking Down the Syntax:</h4>
+            <ul>
+                <li><code>&lt;regex&gt;</code>: Tells Tesseract this is a regular expression</li>
+                <li><code>"pattern"</code>: The pattern you're looking for</li>
+                <li><code>//flags</code>: Optional modifiers that change how the pattern works</li>
+            </ul>
+
+            <h4>Flags Explained:</h4>
+            <ul>
+                <li><strong>i</strong> - Case insensitive matching ("Hello" matches "hello", "HELLO", "HeLLo")</li>
+                <li><strong>g</strong> - Global matching (find ALL occurrences, not just the first one)</li>
+            </ul>
+
+            <h3>Common Use Cases</h3>
+            <ul>
+                <li><strong>Email Validation</strong>: Ensure user entered a valid email format</li>
+                <li><strong>Phone Number Formatting</strong>: Extract phone numbers from text</li>
+                <li><strong>Data Extraction</strong>: Pull specific information from log files</li>
+                <li><strong>Input Sanitization</strong>: Remove unwanted characters from user input</li>
+                <li><strong>Search and Replace</strong>: Find complex patterns and replace them</li>
+            </ul>
+
+            <h3>Regular Expression Operations</h3>
+            <div class="code-block">
+                <pre><code>::rmatch(regex, text)              // test if pattern matches (1=match, 0=no match)
+::rfind_all(regex, text)           // find all match positions
+::rreplace(regex, text, replacement) // replace first match</code></pre>
+            </div>
+
+            <h3>Regular Expression Examples</h3>
+
+            <h4>Email Validation:</h4>
+            <div class="code-block">
+                <pre><code>let$ email_pattern := &amp;lt;regex&amp;gt; "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"//i
+let$ email := "user@example.com"
+let$ is_valid := ::rmatch(email_pattern, email)</code></pre>
+            </div>
+
+            <h4>Phone Number Extraction:</h4>
+            <div class="code-block">
+                <pre><code>let$ phone_pattern := &amp;lt;regex&amp;gt; "\d{3}-\d{3}-\d{4}"//g
+let$ text := "Call me at 555-123-4567 or 555-987-6543"
+::rfind_all(phone_pattern, text)</code></pre>
+            </div>
+
+            <h4>Text Replacement:</h4>
+            <div class="code-block">
+                <pre><code>let$ word_pattern := &amp;lt;regex&amp;gt; "hello"//gi
+let$ text := "Hello world, hello Tesseract"
+let$ result := ::rreplace(word_pattern, text, "hi")</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Temporal Variables</h2>
+            <p>Temporal variables are a unique feature of Tesseract that automatically maintain a history of their past values. Think of them as variables with built-in memory that remember what they used to be.</p>
+
+            <h3>What Makes Temporal Variables Special</h3>
+            <ul>
+                <li><strong>Automatic History</strong>: Every assignment is remembered</li>
+                <li><strong>Time-Aware</strong>: Can access values from specific points in time</li>
+                <li><strong>Fixed Memory</strong>: History size is set at creation</li>
+                <li><strong>Pattern Analysis</strong>: Built-in functions to analyze trends</li>
+            </ul>
+
+            <h3>Creation</h3>
+            <div class="code-block">
+                <pre><code>let$ sensor := &amp;lt;temp@5&amp;gt;  # Temporal variable with history of 5 values</code></pre>
+            </div>
+
+            <h3>Temporal Operations</h3>
+            <div class="code-block">
+                <pre><code>::temporal_get("var_name", index)           // get value at specific history index
+::temporal_pattern("var_name", "trend", n)  // analyze trend over last n values
+::temporal_aggregate("var_name", "avg", n)  // calculate average over last n values
+::temporal_aggregate("var_name", "sum", n)  // calculate sum over last n values
+::temporal_aggregate("var_name", "min", n)  // find minimum over last n values
+::temporal_aggregate("var_name", "max", n)  // find maximum over last n values</code></pre>
+            </div>
+
+            <h3>When to Use Temporal Variables</h3>
+            <ul>
+                <li><strong>Sensor Data</strong>: Track temperature, pressure, or other measurements over time</li>
+                <li><strong>Financial Data</strong>: Monitor stock prices, account balances</li>
+                <li><strong>Performance Metrics</strong>: Track system performance over time</li>
+                <li><strong>User Behavior</strong>: Analyze patterns in user actions</li>
+                <li><strong>Game States</strong>: Track player scores or positions</li>
+            </ul>
+
+            <h3>Real-world Examples</h3>
+            <ul>
+                <li>Smart thermostat tracking room temperature</li>
+                <li>Stock trading algorithm monitoring price changes</li>
+                <li>Health app tracking daily steps or heart rate</li>
+                <li>Website analytics tracking visitor counts</li>
+                <li>IoT device monitoring environmental conditions</li>
+            </ul>
+
+            <h3>Temporal Variable Example</h3>
+            <div class="code-block">
+                <pre><code>let$ temperature := &amp;lt;temp@10&amp;gt;  # Track last 10 temperature readings
+
+# Simulate sensor readings
+let$ temperature := 20.5
+let$ temperature := 21.0
+let$ temperature := 21.5
+let$ temperature := 22.0
+
+# Analyze the data
+let$ avg_temp := ::temporal_aggregate("temperature", "avg", 4)
+let$ trend := ::temporal_pattern("temperature", "trend", 4)
+let$ previous := ::temporal_get("temperature", 1)  # Get previous value
+
+::print "Average temperature: @s" (avg_temp)
+::print "Temperature trend: @s" (trend)  # 1=rising, 0=stable, -1=falling
+::print "Previous reading: @s" (previous)</code></pre>
+            </div>
+
+            <h3>Pattern Analysis</h3>
+            <p>Temporal variables can automatically detect patterns in your data:</p>
+            <ul>
+                <li><strong>Trend Analysis</strong>: Determine if values are increasing, decreasing, or stable</li>
+                <li><strong>Statistical Functions</strong>: Calculate averages, sums, min/max over time windows</li>
+                <li><strong>Historical Access</strong>: Retrieve any previous value by its position in history</li>
+            </ul>
+
+            <div class="code-block">
+                <pre><code># Example: Monitoring system load
+let$ cpu_usage := &amp;lt;temp@20&amp;gt;
+
+func$ monitor_system() => {
+    # Simulate CPU readings
+    let$ cpu_usage := 45.2
+    let$ cpu_usage := 52.1
+    let$ cpu_usage := 48.7
+    let$ cpu_usage := 55.3
+    let$ cpu_usage := 61.8
+    
+    # Check if CPU usage is trending upward
+    let$ trend := ::temporal_pattern("cpu_usage", "trend", 5)
+    let$ avg_usage := ::temporal_aggregate("cpu_usage", "avg", 5)
+    
+    if$ trend == 1 && avg_usage > 50 {
+        ::print "Warning: CPU usage is rising and above 50%"
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Choosing the Right Data Structure</h2>
+            
+            <div class="comparison-table">
+                <h3>Data Structure Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Structure</th>
+                            <th>Access Time</th>
+                            <th>Insert/Delete</th>
+                            <th>Best Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>List</td>
+                            <td>O(1) by index</td>
+                            <td>O(1) at end</td>
+                            <td>Ordered collections, random access</td>
+                        </tr>
+                        <tr>
+                            <td>Dictionary</td>
+                            <td>O(1) by key</td>
+                            <td>O(1)</td>
+                            <td>Key-value mappings, fast lookups</td>
+                        </tr>
+                        <tr>
+                            <td>Stack</td>
+                            <td>O(1) top only</td>
+                            <td>O(1) top only</td>
+                            <td>LIFO operations, undo systems</td>
+                        </tr>
+                        <tr>
+                            <td>Queue</td>
+                            <td>O(1) front/back</td>
+                            <td>O(1) front/back</td>
+                            <td>FIFO operations, task processing</td>
+                        </tr>
+                        <tr>
+                            <td>Linked List</td>
+                            <td>O(n)</td>
+                            <td>O(1) if position known</td>
+                            <td>Dynamic size, frequent insertions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Decision Guide</h3>
+            <ul>
+                <li><strong>Need ordered data with random access?</strong> → Use Lists</li>
+                <li><strong>Need fast lookups by key?</strong> → Use Dictionaries</li>
+                <li><strong>Need LIFO behavior?</strong> → Use Stacks</li>
+                <li><strong>Need FIFO behavior?</strong> → Use Queues</li>
+                <li><strong>Need frequent insertions/deletions?</strong> → Use Linked Lists</li>
+                <li><strong>Need pattern matching in text?</strong> → Use Regular Expressions</li>
+                <li><strong>Need historical data tracking?</strong> → Use Temporal Variables</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Performance Considerations</h2>
+            
+            <h3>Memory Usage</h3>
+            <ul>
+                <li><strong>Lists</strong>: Contiguous memory, good cache performance</li>
+                <li><strong>Dictionaries</strong>: Hash table overhead, but fast access</li>
+                <li><strong>Stacks/Queues</strong>: Minimal overhead, very efficient</li>
+                <li><strong>Linked Lists</strong>: Pointer overhead, scattered memory</li>
+                <li><strong>Temporal Variables</strong>: Fixed memory based on history size</li>
+            </ul>
+
+            <h3>Operation Costs</h3>
+            <ul>
+                <li><strong>Insertion</strong>: Stacks/Queues fastest, Lists good at end, Linked Lists variable</li>
+                <li><strong>Deletion</strong>: Similar to insertion patterns</li>
+                <li><strong>Search</strong>: Dictionaries fastest by key, Lists require iteration</li>
+                <li><strong>Iteration</strong>: Lists fastest, Linked Lists slower due to pointer chasing</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+                <li>Choose the simplest structure that meets your needs</li>
+                <li>Consider access patterns when selecting structures</li>
+                <li>Use appropriate initial sizes when known</li>
+                <li>Profile performance for critical applications</li>
+                <li>Consider memory constraints in embedded systems</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tesseract Programming Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

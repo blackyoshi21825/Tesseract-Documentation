@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntax - Tesseract Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" id="logo-link">
+                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                </a>
+                <h1>Tesseract</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="getting-started.html">Getting Started</a>
+                <a href="syntax.html" class="active">Syntax</a>
+                <a href="temporal.html">Temporal</a>
+                <a href="data-structures.html">Data Structures</a>
+                <a href="functions.html">Functions</a>
+                <a href="examples.html">Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Language Syntax</h1>
+
+        <section class="section">
+            <h2>Variables and Assignment</h2>
+            <p>In Tesseract, variables are containers that store data values. Unlike statically-typed languages, you don't need to declare what type of data a variable will hold - the language figures this out automatically based on the value you assign.</p>
+
+            <h3>Variable Declaration Syntax</h3>
+            <div class="code-block">
+                <pre><code>let$variable_name := value</code></pre>
+            </div>
+
+            <p>The <code>let$</code> keyword tells Tesseract you're creating a new variable. The <code>$</code> symbol is part of the syntax that distinguishes variable declarations from other statements. The <code>:=</code> operator performs the assignment.</p>
+
+            <h3>Why This Syntax?</h3>
+            <p>The <code>let$</code> prefix makes variable declarations immediately recognizable when reading code. The <code>:=</code> assignment operator (borrowed from languages like Go and Pascal) clearly indicates assignment versus comparison, reducing common programming errors.</p>
+
+            <h3>Examples with Explanations</h3>
+            <div class="code-block">
+                <pre><code>let$ x := 42                    # Creates an integer variable
+let$ name := "Tesseract"        # Creates a string variable  
+let$ pi := 3.14159              # Creates a floating-point variable
+let$ is_active := true          # Creates a boolean variable</code></pre>
+            </div>
+
+            <h3>Dynamic Typing in Action</h3>
+            <div class="code-block">
+                <pre><code>let$ data := 42                 # data is now a number
+let$ data := "hello"            # data is now a string - this is allowed!</code></pre>
+            </div>
+
+            <h3>Variable Naming Rules</h3>
+            <ul>
+                <li>Must start with a letter (a-z, A-Z) or underscore (_)</li>
+                <li>Can contain letters, numbers, and underscores</li>
+                <li>Case-sensitive (myVar and myvar are different)</li>
+                <li>Cannot use reserved words (if, while, func, etc.)</li>
+                <li>Should be descriptive (use 'user_count' instead of 'uc')</li>
+            </ul>
+
+            <h3>Best Practices</h3>
+            <ul>
+                <li>Use snake_case for multi-word variables (user_name, total_count)</li>
+                <li>Choose descriptive names that explain the variable's purpose</li>
+                <li>Avoid single-letter names except for loop counters</li>
+                <li>Use boolean variable names that read like questions (is_valid, has_permission)</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Operators</h2>
+
+            <h3>Arithmetic Operators</h3>
+            <div class="code-block">
+                <pre><code>+ (addition)
+- (subtraction)
+* (multiplication)
+/ (division)
+% (modulo)</code></pre>
+            </div>
+
+            <h3>Comparison Operators</h3>
+            <div class="code-block">
+                <pre><code>== (equality)
+!= (inequality)
+< (less than)
+> (greater than)
+<= (less than or equal)
+>= (greater than or equal)</code></pre>
+            </div>
+
+            <h3>Logical Operators</h3>
+            <div class="code-block">
+                <pre><code>and (logical AND)
+or (logical OR)
+not (logical NOT)</code></pre>
+            </div>
+
+            <h3>Bitwise Operators</h3>
+            <div class="code-block">
+                <pre><code>& (bitwise AND)
+| (bitwise OR)
+^ (bitwise XOR)
+~ (bitwise NOT)</code></pre>
+            </div>
+
+            <h3>Assignment Operators</h3>
+            <div class="code-block">
+                <pre><code>:= (assignment)</code></pre>
+            </div>
+
+            <h3>Ternary Operator</h3>
+            <div class="code-block">
+                <pre><code>condition ? true_value : false_value</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Control Structures</h2>
+            <p>Control structures are the decision-making components of your program. They determine which code executes based on conditions, allowing your program to respond dynamically to different situations.</p>
+
+            <h3>Conditional Statements</h3>
+            <p>Conditional statements allow your program to make decisions. Think of them as the "if-then" logic that humans use daily: "If it's raining, then take an umbrella."</p>
+
+            <h4>Basic If Statement</h4>
+            <div class="code-block">
+                <pre><code>if$ condition {
+    // code block executes only if condition is true
+}</code></pre>
+            </div>
+
+            <p>Real-world example:</p>
+            <div class="code-block">
+                <pre><code>if$ temperature > 30 {
+    ::print "It's hot outside!"
+}</code></pre>
+            </div>
+
+            <h4>If-Else Statement</h4>
+            <div class="code-block">
+                <pre><code>if$ condition {
+    // executes when condition is true
+} else {
+    // executes when condition is false
+}</code></pre>
+            </div>
+
+            <p>Real-world example:</p>
+            <div class="code-block">
+                <pre><code>if$ age >= 18 {
+    ::print "You can vote"
+} else {
+    ::print "You're too young to vote"
+}</code></pre>
+            </div>
+
+            <h4>If-ElseIf-Else Chain</h4>
+            <div class="code-block">
+                <pre><code>if$ condition1 {
+    // first condition is true
+} elseif$ condition2 {
+    // first was false, second is true
+} elseif$ condition3 {
+    // first two were false, third is true
+} else {
+    // all conditions were false
+}</code></pre>
+            </div>
+
+            <p>Real-world example:</p>
+            <div class="code-block">
+                <pre><code>if$ score >= 90 {
+    ::print "Grade: A"
+} elseif$ score >= 80 {
+    ::print "Grade: B"
+} elseif$ score >= 70 {
+    ::print "Grade: C"
+} else {
+    ::print "Grade: F"
+}</code></pre>
+            </div>
+
+            <h4>Switch-Case Statement</h4>
+            <div class="code-block">
+                <pre><code>switch$ expression {
+    case$ value1 {
+        // handle value1
+    }
+    case$ value2 {
+        // handle value2
+    }
+    case$ value3 {
+        // handle value3
+    }
+    default$ {
+        // default handling
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Loops</h2>
+            <p>Loops are programming constructs that repeat a block of code multiple times. They're essential for tasks like processing lists of data, performing calculations multiple times, or continuing an operation until a condition is met.</p>
+
+            <h3>Range-Based Loops (For Loops)</h3>
+            <p>Range-based loops are perfect when you know how many times you want to repeat something, or when you want to process a sequence of numbers.</p>
+
+            <h4>Basic Range Loop</h4>
+            <div class="code-block">
+                <pre><code>loop$variable := start => end {
+    // loop body executes for each value from start to end
+}</code></pre>
+            </div>
+
+            <p>How it works:</p>
+            <ul>
+                <li>The loop variable starts at the 'start' value</li>
+                <li>Each iteration, the variable increases by 1</li>
+                <li>The loop continues until the variable reaches the 'end' value (inclusive)</li>
+                <li>The loop body can access the current value through the loop variable</li>
+            </ul>
+
+            <h4>Custom Increment Loop</h4>
+            <div class="code-block">
+                <pre><code>loop$variable := start => end, increment {
+    // loop body with custom step size
+}</code></pre>
+            </div>
+
+            <h4>Loop Examples</h4>
+            <div class="code-block">
+                <pre><code># Ascending loop
+loop$ i := 1 => 10 {
+    ::print i
+}
+
+# Descending loop
+loop$ i := 10 => 1, -1 {
+    ::print i
+}
+
+# Custom increment
+loop$ i := 0 => 100, 5 {
+    ::print i
+}
+
+# Fractional increment
+loop$ i := 0 => 1, 0.1 {
+    ::print i
+}</code></pre>
+            </div>
+
+            <h3>While Loop</h3>
+            <div class="code-block">
+                <pre><code>while$ condition {
+    // loop body
+}</code></pre>
+            </div>
+
+            <h4>While Loop Example</h4>
+            <div class="code-block">
+                <pre><code>let$ counter := 0
+while$ counter < 10 {
+    ::print counter
+    let$ counter := counter + 1
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Classes and Objects</h2>
+            <p>Classes are blueprints for creating objects - they define what data an object can hold and what actions it can perform. Think of a class as a template or mold, and objects as the actual items created from that template.</p>
+
+            <h3>Why Use Classes?</h3>
+            <p>Classes help organize related data and functionality together. Instead of having separate variables for a person's name, age, and email scattered throughout your code, you can group them into a Person class.</p>
+
+            <h3>Class Structure</h3>
+            <div class="code-block">
+                <pre><code>class$ ClassName {
+    // Properties (data the object holds)
+    let$ property1 := default_value
+    let$ property2 := default_value
+    
+    // Constructor (sets up new objects)
+    func$ init(param1, param2) => {
+        let$ self.property1 := param1
+        let$ self.property2 := param2
+    }
+    
+    // Methods (actions the object can perform)
+    func$ method_name(parameters) => {
+        // method body
+    }
+}</code></pre>
+            </div>
+
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>Properties</strong>: Variables that belong to the object. Each object has its own copy of these values.</li>
+                <li><strong>Constructor (init)</strong>: A special function that runs when you create a new object. It sets up the object's initial state.</li>
+                <li><strong>Methods</strong>: Functions that belong to the class. They can access and modify the object's properties.</li>
+                <li><strong>self</strong>: A special keyword that refers to the current object. Use it to access the object's properties and methods.</li>
+            </ul>
+
+            <h3>Complete Class Example</h3>
+            <div class="code-block">
+                <pre><code>class$ BankAccount {
+    let$ owner := ""
+    let$ balance := 0
+    let$ account_number := ""
+    
+    func$ init(owner, initial_balance, account_number) => {
+        let$ self.owner := owner
+        let$ self.balance := initial_balance
+        let$ self.account_number := account_number
+    }
+    
+    func$ deposit(amount) => {
+        let$ self.balance := self.balance + amount
+        ::print "Deposited @s. New balance: @s" (amount, self.balance)
+    }
+    
+    func$ withdraw(amount) => {
+        if$ self.balance >= amount {
+            let$ self.balance := self.balance - amount
+            ::print "Withdrew @s. New balance: @s" (amount, self.balance)
+        } else {
+            ::print "Insufficient funds"
+        }
+    }
+    
+    func$ get_balance() => {
+        self.balance
+    }
+    
+    func$ display_info() => {
+        ::print "Account: @s" (self.account_number)
+        ::print "Owner: @s" (self.owner)
+        ::print "Balance: @s" (self.balance)
+    }
+}</code></pre>
+            </div>
+
+            <h3>Object Usage</h3>
+            <div class="code-block">
+                <pre><code>let$ account := BankAccount()
+account.init("John Doe", 1000, "ACC123456")
+account.display_info()
+account.deposit(500)
+account.withdraw(200)</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>String Operations</h2>
+
+            <h3>String Formatting</h3>
+            <div class="code-block">
+                <pre><code>::print "Hello @s" (name)
+::print "Value: @s, Count: @s" (value, count)</code></pre>
+            </div>
+
+            <h3>Type Conversion</h3>
+            <div class="code-block">
+                <pre><code>::to_str(number)    // convert number to string
+::to_int(string)    // convert string to number</code></pre>
+            </div>
+
+            <h3>String Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ age := 25
+let$ age_str := ::to_str(age)
+::print "Age as string: @s" (age_str)
+
+let$ number_str := "42"
+let$ number := ::to_int(number_str)
+::print "Parsed number: @s" (number)</code></pre>
+            </div>
+
+            <h3>Pattern Matching</h3>
+            <div class="code-block">
+                <pre><code>::pattern_match(pattern, text)  // returns list of starting indices</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Input and Output</h2>
+
+            <h3>Output</h3>
+            <div class="code-block">
+                <pre><code>::print value
+::print "formatted @s" (value)</code></pre>
+            </div>
+
+            <h3>Input</h3>
+            <div class="code-block">
+                <pre><code>let$ user_input := ::input("Enter value: ")</code></pre>
+            </div>
+
+            <h3>Input/Output Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ name := ::input("What's your name? ")
+::print "Hello, @s!" (name)
+
+let$ age_str := ::input("How old are you? ")
+let$ age := ::to_int(age_str)
+::print "You are @s years old" (age)</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tesseract Programming Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

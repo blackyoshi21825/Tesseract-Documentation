@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Programming - Tesseract Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" id="logo-link">
+                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                </a>
+                <h1>Tesseract</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="getting-started.html">Getting Started</a>
+                <a href="syntax.html">Syntax</a>
+                <a href="temporal.html" class="active">Temporal</a>
+                <a href="data-structures.html">Data Structures</a>
+                <a href="functions.html">Functions</a>
+                <a href="examples.html">Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Temporal Programming</h1>
+
+        <section class="section">
+            <h2>Introduction</h2>
+            <p>Tesseract introduces a revolutionary approach to programming with its built-in temporal programming capabilities. Unlike traditional programming languages where variables only hold their current value, Tesseract allows variables to maintain a complete history of their past values. This enables developers to create time-aware applications that can analyze trends, detect patterns, and make decisions based on historical data without requiring external databases or complex data structures.</p>
+            
+            <p>Temporal programming is particularly valuable for applications involving sensor data, financial analysis, system monitoring, and any scenario where understanding how values change over time is crucial for decision-making.</p>
+        </section>
+
+        <section class="section">
+            <h2>Temporal Variables</h2>
+            <p>Temporal variables are the foundation of time-aware programming in Tesseract. When you declare a temporal variable, you specify how many historical values it should remember. This creates a sliding window of data that automatically manages memory and provides instant access to past values.</p>
+
+            <h3>Declaration</h3>
+            <div class="code-block">
+                <pre><code>let$ var := &amp;lt;temp@N&amp;gt;  # N is the history size</code></pre>
+            </div>
+
+            <p>The history size determines how many previous values the variable will remember. For example, <code>&amp;lt;temp@5&amp;gt;</code> will remember the current value plus the 4 most recent previous values.</p>
+
+            <h3>Assignment and History Management</h3>
+            <div class="code-block">
+                <pre><code>let$ x := &amp;lt;temp@3&amp;gt;     # Create temporal variable with history of 3
+let$ x := 10           # First assignment: x@0 = 10
+let$ x := 20           # Second assignment: x@0 = 20, x@1 = 10
+let$ x := 30           # Third assignment: x@0 = 30, x@1 = 20, x@2 = 10</code></pre>
+            </div>
+
+            <p>Each time you assign a new value to a temporal variable, the previous values shift down in the history chain. The oldest value beyond the specified history size is automatically discarded, ensuring efficient memory usage.</p>
+
+            <h3>Accessing Historical Values</h3>
+            <div class="code-block">
+                <pre><code>x@0  # current value (30) - most recent assignment
+x@1  # previous value (20) - one step back in time
+x@2  # value before that (10) - two steps back in time</code></pre>
+            </div>
+
+            <p>The <code>@</code> operator followed by an index number allows you to access any value in the variable's history. Index 0 always represents the current value, while higher indices represent progressively older values.</p>
+        </section>
+
+        <section class="section">
+            <h2>Temporal Loops</h2>
+            <p>Temporal loops provide an elegant way to iterate through a variable's entire history without manually accessing each index. This is particularly useful when you need to process all historical values or search for specific patterns across time.</p>
+
+            <p>The temporal loop automatically iterates from the most recent value (index 0) to the oldest available value in the history:</p>
+
+            <div class="code-block">
+                <pre><code>temporal$ t in x {
+    ::print "Historical value: @s" (t)
+}
+# Output:
+# Historical value: 30  (current value)
+# Historical value: 20  (previous value)
+# Historical value: 10  (oldest value)</code></pre>
+            </div>
+
+            <p>This loop structure is more efficient than manually iterating through indices and automatically handles variables with different history sizes. It's commonly used for calculating aggregates, searching for specific values, or applying transformations to historical data.</p>
+        </section>
+
+        <section class="section">
+            <h2>Built-in Temporal Functions</h2>
+            <p>Tesseract provides a comprehensive suite of built-in functions specifically designed for temporal data analysis. These functions eliminate the need for manual loops and complex calculations when working with historical data.</p>
+
+            <h3>Temporal Aggregation</h3>
+            <div class="code-block">
+                <pre><code>::temporal_aggregate(variable_name, operation, window_size)</code></pre>
+            </div>
+
+            <p>This powerful function performs mathematical aggregations over a sliding window of historical values. It's essential for calculating moving averages, finding extremes in recent data, or summarizing trends over specific time periods.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>variable_name</strong>: String name of the temporal variable (must be quoted)</li>
+                <li><strong>operation</strong>: Mathematical operation - "sum", "avg", "min", "max"</li>
+                <li><strong>window_size</strong>: Number of most recent historical values to include in calculation</li>
+            </ul>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ sensor := &amp;lt;temp@10&amp;gt;
+let$ sensor := 100
+let$ sensor := 105
+let$ sensor := 110
+
+# Calculate average of last 3 values
+::print ::temporal_aggregate("sensor", "avg", 3)  # prints 105
+
+# Sum of last 2 values
+::print ::temporal_aggregate("sensor", "sum", 2)  # prints 215
+
+# Min/Max operations
+::print ::temporal_aggregate("sensor", "min", 3)  # prints 100
+::print ::temporal_aggregate("sensor", "max", 3)  # prints 110</code></pre>
+            </div>
+
+            <h3>Temporal Pattern Detection</h3>
+            <div class="code-block">
+                <pre><code>::temporal_pattern(variable_name, pattern_type, threshold)</code></pre>
+            </div>
+
+            <p>Pattern detection is crucial for understanding the behavior of time-series data. This function uses sophisticated algorithms to automatically identify common patterns that would be difficult to detect manually.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>variable_name</strong>: String name of the temporal variable (must be quoted)</li>
+                <li><strong>pattern_type</strong>: Type of pattern to detect - "trend", "cycle", "anomaly"</li>
+                <li><strong>threshold</strong>: Sensitivity threshold - lower values are more sensitive to changes</li>
+            </ul>
+
+            <h4>Pattern Types Explained:</h4>
+            <ul>
+                <li><strong>"trend"</strong>: Analyzes the overall direction of data movement. Returns 1 for upward trends (values generally increasing), -1 for downward trends (values decreasing), and 0 for stable periods (no clear direction).</li>
+                <li><strong>"cycle"</strong>: Identifies repeating patterns in the data, useful for detecting seasonal variations or periodic behavior in systems.</li>
+                <li><strong>"anomaly"</strong>: Uses statistical z-score analysis to identify values that deviate significantly from the historical norm, helping detect outliers or system failures.</li>
+            </ul>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ sensor := &amp;lt;temp@10&amp;gt;
+let$ sensor := 100
+let$ sensor := 105
+let$ sensor := 110
+
+# Detect upward trend (threshold 3%)
+::print ::temporal_pattern("sensor", "trend", 3.0)  # prints 1 (upward)
+
+# Detect anomalies (z-score threshold 2.0)
+::print ::temporal_pattern("sensor", "anomaly", 2.0)  # prints 0 (no anomaly)
+
+# Add anomalous value and test again
+let$ sensor := 200
+::print ::temporal_pattern("sensor", "anomaly", 1.5)  # prints 1 (anomaly detected)</code></pre>
+            </div>
+
+            <h3>Temporal Condition Checking</h3>
+            <div class="code-block">
+                <pre><code>::temporal_condition(variable_name, condition, start_index, window_size)</code></pre>
+            </div>
+
+            <p>Checks if a specific condition is met within a temporal window.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>variable_name</strong>: String name of the temporal variable</li>
+                <li><strong>condition</strong>: Condition string (">", "<", "==", "between", "increasing", "stable")</li>
+                <li><strong>start_index</strong>: Starting position in history (0 = current, 1 = previous, etc.)</li>
+                <li><strong>window_size</strong>: Number of consecutive values to check</li>
+            </ul>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ temp := &amp;lt;temp@20&amp;gt;
+let$ temp := 95
+let$ temp := 98
+let$ temp := 102
+let$ temp := 105
+
+# Check if last 3 values were all above 100
+::print ::temporal_condition("temp", "> 100", 0, 3)  # prints false
+
+# Check if values 2-4 steps back were all below 100
+::print ::temporal_condition("temp", "< 100", 2, 3)  # prints true
+
+# Check if any value in last 5 was exactly 98
+::print ::temporal_condition("temp", "== 98", 0, 5)  # prints true
+
+# Check if all values in window are between 90-110
+::print ::temporal_condition("temp", "between 90 110", 0, 4)  # prints true
+
+# Check if values are increasing for 3 consecutive steps
+::print ::temporal_condition("temp", "increasing", 0, 3)  # prints true
+
+# Check if variance is low (stable period)
+::print ::temporal_condition("temp", "stable 5", 0, 4)  # prints 1 (variance < 5)</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Advanced Temporal Functions</h2>
+
+            <h3>Sliding Window Analysis</h3>
+            <div class="code-block">
+                <pre><code>::sliding_window_stats(variable_name, window_size, stat_type)</code></pre>
+            </div>
+
+            <p>Performs statistical analysis over a sliding window of temporal data.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>variable_name</strong>: String name of the temporal variable</li>
+                <li><strong>window_size</strong>: Size of the sliding window</li>
+                <li><strong>stat_type</strong>: "variance", "stddev", "range", "median"</li>
+            </ul>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ data := &amp;lt;temp@20&amp;gt;
+let$ data := 10
+let$ data := 15
+let$ data := 12
+let$ data := 18
+let$ data := 14
+
+# Calculate variance over sliding window of 4
+::print ::sliding_window_stats("data", 4, "variance")  # prints variance
+
+# Get standard deviation
+::print ::sliding_window_stats("data", 3, "stddev")    # prints std deviation
+
+# Calculate range (max - min)
+::print ::sliding_window_stats("data", 5, "range")     # prints range</code></pre>
+            </div>
+
+            <h3>Sensitivity Threshold Monitor</h3>
+            <div class="code-block">
+                <pre><code>::sensitivity_threshold(variable_name, threshold_value, sensitivity_percent)</code></pre>
+            </div>
+
+            <p>Monitors if values exceed a threshold with configurable sensitivity.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>variable_name</strong>: String name of the temporal variable</li>
+                <li><strong>threshold_value</strong>: Base threshold value</li>
+                <li><strong>sensitivity_percent</strong>: Sensitivity as percentage (e.g., 10.0 for 10%)</li>
+            </ul>
+
+            <h4>Returns:</h4>
+            <ul>
+                <li><strong>1</strong>: Value exceeds threshold + sensitivity</li>
+                <li><strong>0</strong>: Value within acceptable range</li>
+                <li><strong>-1</strong>: Value below threshold - sensitivity</li>
+            </ul>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ temp := &amp;lt;temp@10&amp;gt;
+let$ temp := 100
+let$ temp := 108
+let$ temp := 95
+
+# Monitor with 5% sensitivity around threshold of 100
+::print ::sensitivity_threshold("temp", 100, 5.0)  # prints 1 (108 > 105)
+
+# Check with 10% sensitivity
+::print ::sensitivity_threshold("temp", 100, 10.0) # prints 0 (108 within 90-110)
+
+# Lower value triggers negative response
+let$ temp := 85
+::print ::sensitivity_threshold("temp", 100, 10.0) # prints -1 (85 < 90)</code></pre>
+            </div>
+
+            <h3>Temporal Correlations</h3>
+            <div class="code-block">
+                <pre><code>::temporal_correlate(var1, var2, window_size)</code></pre>
+            </div>
+
+            <p>Calculate correlation between two temporal variables.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>var1</strong>: String name of first temporal variable</li>
+                <li><strong>var2</strong>: String name of second temporal variable</li>
+                <li><strong>window_size</strong>: Number of recent values to correlate</li>
+            </ul>
+
+            <h4>Returns:</h4>
+            <p>Pearson correlation coefficient (-1.0 to 1.0)</p>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ temp := &amp;lt;temp@10&amp;gt;
+let$ humidity := &amp;lt;temp@10&amp;gt;
+
+# Add some correlated data
+let$ temp := 20; let$ humidity := 60
+let$ temp := 25; let$ humidity := 55
+let$ temp := 30; let$ humidity := 50
+let$ temp := 35; let$ humidity := 45
+
+# Calculate correlation over last 4 values
+::print ::temporal_correlate("temp", "humidity", 4)  # prints negative correlation</code></pre>
+            </div>
+
+            <h3>Temporal Interpolation</h3>
+            <div class="code-block">
+                <pre><code>::temporal_interpolate(variable_name, missing_index)</code></pre>
+            </div>
+
+            <p>Interpolate missing values in temporal data.</p>
+
+            <h4>Parameters:</h4>
+            <ul>
+                <li><strong>variable_name</strong>: String name of the temporal variable</li>
+                <li><strong>missing_index</strong>: Index where data is missing</li>
+            </ul>
+
+            <h4>Returns:</h4>
+            <p>Interpolated value based on neighboring data points</p>
+
+            <h4>Examples:</h4>
+            <div class="code-block">
+                <pre><code>let$ data := &amp;lt;temp@10&amp;gt;
+let$ data := 10
+let$ data := 15  # This will be "missing"
+let$ data := 20
+
+# Interpolate the middle value (index 1)
+::print ::temporal_interpolate("data", 1)  # prints 15 (average of 10 and 20)
+
+# For edge cases, uses nearest neighbor
+::print ::temporal_interpolate("data", 0)  # prints 15 (next value)
+::print ::temporal_interpolate("data", 2)  # prints 15 (previous value)</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Use Cases</h2>
+            <p>Temporal programming in Tesseract opens up numerous practical applications across various domains. Here are some real-world scenarios where temporal capabilities prove invaluable:</p>
+
+            <h3>System Monitoring</h3>
+            <p>System monitoring applications benefit greatly from temporal programming. Instead of just checking current values, you can analyze trends and patterns to predict failures before they occur.</p>
+            <div class="code-block">
+                <pre><code>let$ pressure := &amp;lt;temp@50&amp;gt;
+
+# Monitor if pressure stayed in safe range for last 10 readings
+func$ pressure_safe() => {
+    ::temporal_condition("pressure", "between 10 50", 0, 10)
+}
+
+# Check if there's been consistent increase (trend detection)
+func$ pressure_rising() => {
+    ::temporal_condition("pressure", "increasing", 0, 5)
+}
+
+# Alert system based on temporal conditions
+if$ not ::temporal_condition("pressure", "< 60", 0, 3) {
+    ::print "WARNING: High pressure detected!"
+}</code></pre>
+            </div>
+
+            <h3>Financial Analysis</h3>
+            <p>Financial and statistical applications often require moving averages to smooth out short-term fluctuations and identify underlying trends.</p>
+            <div class="code-block">
+                <pre><code>let$ price := &amp;lt;temp@5&amp;gt;
+let$ price := 100
+let$ price := 105
+let$ price := 98
+
+func$ moving_average() => {
+    let$ sum := 0
+    let$ count := 0
+    temporal$ p in price {
+        let$ sum := sum + p
+        let$ count := count + 1
+    }
+    sum / count
+}</code></pre>
+            </div>
+
+            <h3>State Tracking</h3>
+            <p>Many applications need to track state changes over time. Temporal variables provide an elegant solution for detecting transitions, measuring state durations, and analyzing state patterns.</p>
+            <div class="code-block">
+                <pre><code>let$ state := &amp;lt;temp@10&amp;gt;
+let$ state := "idle"
+let$ state := "processing"
+let$ state := "complete"
+
+# Check if state changed
+if$ state@0 != state@1 {
+    ::print "State changed from @s to @s" (state@1, state@0)
+}</code></pre>
+            </div>
+
+            <h3>Time Series Analysis</h3>
+            <p>Complex time series analysis becomes manageable with temporal programming. You can implement sophisticated algorithms for trend detection, forecasting, and pattern recognition directly within the language.</p>
+            <div class="code-block">
+                <pre><code>let$ sensor := &amp;lt;temp@100&amp;gt;
+
+func$ detect_trend() => {
+    let$ increasing := 0
+    let$ decreasing := 0
+    
+    loop$ i := 0 => 4 {
+        if$ sensor@i > sensor@(i+1) {
+            let$ increasing := increasing + 1
+        } else {
+            let$ decreasing := decreasing + 1
+        }
+    }
+    
+    increasing > decreasing ? "upward" : "downward"
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Memory Management</h2>
+            <p>Tesseract's temporal programming system is designed with efficiency in mind. The language automatically handles all aspects of memory management for temporal variables, ensuring optimal performance without requiring manual intervention from developers.</p>
+
+            <h3>Key Memory Management Features:</h3>
+            <ul>
+                <li>History is automatically managed by the runtime system</li>
+                <li>Oldest values are automatically discarded when the history limit is reached</li>
+                <li>Memory usage is O(N) where N is the specified history size</li>
+                <li>No memory leaks or fragmentation issues with temporal data</li>
+                <li>Efficient circular buffer implementation for optimal performance</li>
+            </ul>
+
+            <p>This automatic management means developers can focus on application logic rather than worrying about memory allocation, deallocation, or optimization of historical data storage.</p>
+        </section>
+
+        <section class="section">
+            <h2>Best Practices</h2>
+            <p>To maximize the effectiveness of temporal programming in Tesseract, follow these established best practices:</p>
+
+            <ol>
+                <li><strong>Choose Appropriate History Size</strong>: Carefully balance memory usage with the depth of history you actually need. A larger history size consumes more memory but provides richer historical context.</li>
+                <li><strong>Initialize Before Use</strong>: Always assign initial values to temporal variables before attempting to access their history. Uninitialized temporal variables may contain undefined values.</li>
+                <li><strong>Check Bounds Carefully</strong>: Accessing x@N where N exceeds the available history returns undefined behavior. Always ensure your index values are within the valid range.</li>
+                <li><strong>Use Temporal Loops When Possible</strong>: Temporal loops are more efficient than manual history iteration and automatically handle boundary conditions.</li>
+                <li><strong>Consider Performance Implications</strong>: While temporal operations are optimized, excessive use of large history sizes or frequent temporal function calls in tight loops may impact performance.</li>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>Advanced Patterns</h2>
+
+            <h3>Conditional History Access</h3>
+            <div class="code-block">
+                <pre><code>let$ value := &amp;lt;temp@5&amp;gt;
+# ... assignments ...
+
+func$ get_last_valid() => {
+    temporal$ v in value {
+        if$ v > 0 {
+            v  # return first positive historical value
+        }
+    }
+    0  # default if none found
+}</code></pre>
+            </div>
+
+            <h3>Temporal Window Validation</h3>
+            <div class="code-block">
+                <pre><code>let$ sensor := &amp;lt;temp@10&amp;gt;
+# ... sensor readings ...
+
+# Check if system was stable for last 5 readings
+func$ system_stable() => {
+    ::temporal_condition("sensor", "stable 2", 0, 5)
+}
+
+# Alert if any reading in danger zone
+func$ check_danger() => {
+    ::temporal_condition("sensor", "> 150", 0, 10) ? "DANGER" : "SAFE"
+}</code></pre>
+            </div>
+
+            <h3>History Comparison</h3>
+            <div class="code-block">
+                <pre><code>func$ is_stable() => {
+    let$ stable := true
+    loop$ i := 0 => 2 {
+        if$ value@i != value@(i+1) {
+            let$ stable := false
+        }
+    }
+    stable
+}</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tesseract Programming Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

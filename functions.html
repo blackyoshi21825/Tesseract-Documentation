@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions & Built-ins - Tesseract Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" id="logo-link">
+                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                </a>
+                <h1>Tesseract</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="getting-started.html">Getting Started</a>
+                <a href="syntax.html">Syntax</a>
+                <a href="temporal.html">Temporal</a>
+                <a href="data-structures.html">Data Structures</a>
+                <a href="functions.html" class="active">Functions</a>
+                <a href="examples.html">Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Functions & Built-in Operations</h1>
+
+        <section class="section">
+            <h2>User-Defined Functions</h2>
+            <p>Functions are reusable blocks of code that perform specific tasks. Think of them as mini-programs within your program. They take inputs (parameters), process them, and often return a result.</p>
+
+            <h3>Function Anatomy</h3>
+            <div class="code-block">
+                <pre><code>func$function_name(parameter1, parameter2, parameter3) => {
+    // function body - the code that does the work
+    // last expression is automatically returned
+}</code></pre>
+            </div>
+
+            <h4>Breaking Down the Syntax:</h4>
+            <ul>
+                <li><code>func$</code>: Declares this is a function definition</li>
+                <li><code>function_name</code>: A descriptive name for what the function does</li>
+                <li><code>(parameters)</code>: Input values the function needs to work</li>
+                <li><code>=> {</code>: Arrow indicates the start of the function body</li>
+                <li><code>}</code>: Closes the function definition</li>
+            </ul>
+
+            <h3>Return Values</h3>
+            <p>Unlike many languages that require explicit <code>return</code> statements, Tesseract automatically returns the value of the last expression in the function. This makes functions more concise and reduces boilerplate code.</p>
+
+            <h3>Function Examples</h3>
+
+            <h4>Simple Function:</h4>
+            <div class="code-block">
+                <pre><code>func$ greet(name) => {
+    ::print "Hello, @s!" (name)
+}</code></pre>
+            </div>
+
+            <h4>Function with Return Value:</h4>
+            <div class="code-block">
+                <pre><code>func$ add(a, b) => {
+    a + b
+}</code></pre>
+            </div>
+
+            <h4>Function with Multiple Parameters:</h4>
+            <div class="code-block">
+                <pre><code>func$ calculate_area(length, width, height) => {
+    length * width * height
+}</code></pre>
+            </div>
+
+            <h4>Recursive Function:</h4>
+            <div class="code-block">
+                <pre><code>func$ factorial(n) => {
+    n <= 1 ? 1 : n * factorial(n - 1)
+}</code></pre>
+            </div>
+
+            <h3>Function Calls</h3>
+            <div class="code-block">
+                <pre><code>greet("Alice")
+let$ sum := add(5, 3)
+let$ volume := calculate_area(10, 5, 2)</code></pre>
+            </div>
+
+            <h3>Function Limitations</h3>
+            <ul>
+                <li>Maximum 4 parameters per function</li>
+                <li>No function overloading</li>
+                <li>No default parameter values</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Input and Output Functions</h2>
+
+            <h3>Output Functions</h3>
+            <div class="function-ref">
+                <h4><code>::print</code></h4>
+                <p>Outputs text to the console with optional formatting.</p>
+                <div class="code-block">
+                    <pre><code>::print value
+::print "formatted @s" (value)
+::print "Multiple values: @s, @s" (value1, value2)</code></pre>
+                </div>
+            </div>
+
+            <h3>Input Functions</h3>
+            <div class="function-ref">
+                <h4><code>::input</code></h4>
+                <p>Gets user input from the console with an optional prompt.</p>
+                <div class="code-block">
+                    <pre><code>let$ user_input := ::input("Enter value: ")
+let$ name := ::input("What's your name? ")</code></pre>
+                </div>
+            </div>
+
+            <h3>Input/Output Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ name := ::input("What's your name? ")
+::print "Hello, @s!" (name)
+
+let$ age_str := ::input("How old are you? ")
+let$ age := ::to_int(age_str)
+::print "You are @s years old" (age)</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Type Conversion Functions</h2>
+
+            <div class="function-ref">
+                <h4><code>::to_str</code></h4>
+                <p>Converts a number to string representation.</p>
+                <div class="code-block">
+                    <pre><code>let$ age := 25
+let$ age_str := ::to_str(age)
+::print "Age as string: @s" (age_str)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::to_int</code></h4>
+                <p>Converts a string to integer number.</p>
+                <div class="code-block">
+                    <pre><code>let$ number_str := "42"
+let$ number := ::to_int(number_str)
+::print "Parsed number: @s" (number)</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>File Handling Functions</h2>
+
+            <h3>File Modes</h3>
+            <ul>
+                <li><code>"r"</code> - Read (file must exist)</li>
+                <li><code>"w"</code> - Write (creates new/overwrites existing)</li>
+                <li><code>"a"</code> - Append (creates if doesn't exist)</li>
+                <li><code>"r+"</code> - Read/Write (file must exist)</li>
+                <li><code>"w+"</code> - Read/Write (creates new/overwrites existing)</li>
+                <li><code>"a+"</code> - Read/Append (creates if doesn't exist)</li>
+            </ul>
+
+            <div class="function-ref">
+                <h4><code>::fopen</code></h4>
+                <p>Opens a file and returns a file handle.</p>
+                <div class="code-block">
+                    <pre><code>let$ file := ::fopen(filename, mode)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::fread</code></h4>
+                <p>Reads content from an open file.</p>
+                <div class="code-block">
+                    <pre><code>let$ content := ::fread(file_handle)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::fwrite</code></h4>
+                <p>Writes data to an open file.</p>
+                <div class="code-block">
+                    <pre><code>::fwrite(file_handle, data)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::fclose</code></h4>
+                <p>Closes an open file handle.</p>
+                <div class="code-block">
+                    <pre><code>::fclose(file_handle)</code></pre>
+                </div>
+            </div>
+
+            <h3>File Handling Examples</h3>
+
+            <h4>Writing to File:</h4>
+            <div class="code-block">
+                <pre><code>let$ file := ::fopen("output.txt", "w")
+::fwrite(file, "Hello, Tesseract!")
+::fwrite(file, "\nSecond line")
+::fclose(file)</code></pre>
+            </div>
+
+            <h4>Reading from File:</h4>
+            <div class="code-block">
+                <pre><code>let$ file := ::fopen("input.txt", "r")
+let$ content := ::fread(file)
+::fclose(file)
+::print content</code></pre>
+            </div>
+
+            <h4>Appending to File:</h4>
+            <div class="code-block">
+                <pre><code>let$ log_file := ::fopen("log.txt", "a")
+::fwrite(log_file, "Log entry: Application started\n")
+::fclose(log_file)</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>HTTP Web Request Functions</h2>
+            <p>HTTP (HyperText Transfer Protocol) functions allow your programs to communicate with web services, APIs, and websites.</p>
+
+            <div class="function-ref">
+                <h4><code>::http_get</code></h4>
+                <p>Performs HTTP GET request to retrieve data from a server.</p>
+                <div class="code-block">
+                    <pre><code>::http_get(url)                    # Simple request
+::http_get(url, headers_dict)      # Request with custom headers</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::http_post</code></h4>
+                <p>Performs HTTP POST request to send data to a server.</p>
+                <div class="code-block">
+                    <pre><code>::http_post(url, data)                    # Send data
+::http_post(url, data, headers_dict)      # Send data with custom headers</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::http_put</code></h4>
+                <p>Performs HTTP PUT request to update data on a server.</p>
+                <div class="code-block">
+                    <pre><code>::http_put(url, data)
+::http_put(url, data, headers_dict)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::http_delete</code></h4>
+                <p>Performs HTTP DELETE request to remove data from a server.</p>
+                <div class="code-block">
+                    <pre><code>::http_delete(url)
+::http_delete(url, headers_dict)</code></pre>
+                </div>
+            </div>
+
+            <h3>HTTP Examples</h3>
+
+            <h4>Simple GET Request:</h4>
+            <div class="code-block">
+                <pre><code>let$ response := ::http_get("https://api.example.com/users")
+::print response</code></pre>
+            </div>
+
+            <h4>GET with Headers:</h4>
+            <div class="code-block">
+                <pre><code>let$ headers := dict{"Authorization" := "Bearer token123", "User-Agent" := "Tesseract/1.0"}
+let$ response := ::http_get("https://api.example.com/protected", headers)</code></pre>
+            </div>
+
+            <h4>POST Request:</h4>
+            <div class="code-block">
+                <pre><code>let$ user_data := "{\"name\": \"Alice\", \"email\": \"alice@example.com\"}"
+let$ headers := dict{"Content-Type" := "application/json"}
+let$ response := ::http_post("https://api.example.com/users", user_data, headers)</code></pre>
+            </div>
+
+            <h4>API Integration Example:</h4>
+            <div class="code-block">
+                <pre><code>func$ get_weather(city) => {
+    let$ url := "https://api.weather.com/current?city=@s" (city)
+    let$ headers := dict{"API-Key" := "your-api-key"}
+    let$ response := ::http_get(url, headers)
+    response
+}
+
+let$ weather := get_weather("New York")
+::print weather</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Data Structure Functions</h2>
+
+            <h3>List Functions</h3>
+            <div class="function-grid">
+                <div class="function-ref">
+                    <h4><code>::len</code></h4>
+                    <p>Returns the length of a list.</p>
+                    <div class="code-block">
+                        <pre><code>::len(list)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::append</code></h4>
+                    <p>Adds an item to the end of a list.</p>
+                    <div class="code-block">
+                        <pre><code>::append(list, item)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::prepend</code></h4>
+                    <p>Adds an item to the beginning of a list.</p>
+                    <div class="code-block">
+                        <pre><code>::prepend(list, item)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::pop</code></h4>
+                    <p>Removes and returns the last element from a list.</p>
+                    <div class="code-block">
+                        <pre><code>::pop(list)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Dictionary Functions</h3>
+            <div class="function-grid">
+                <div class="function-ref">
+                    <h4><code>::get</code></h4>
+                    <p>Retrieves a value by key from a dictionary.</p>
+                    <div class="code-block">
+                        <pre><code>::get(dict, key)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::set</code></h4>
+                    <p>Sets a key-value pair in a dictionary.</p>
+                    <div class="code-block">
+                        <pre><code>::set(dict, key, value)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::keys</code></h4>
+                    <p>Returns all keys from a dictionary.</p>
+                    <div class="code-block">
+                        <pre><code>::keys(dict)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::values</code></h4>
+                    <p>Returns all values from a dictionary.</p>
+                    <div class="code-block">
+                        <pre><code>::values(dict)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Stack Functions</h3>
+            <div class="function-grid">
+                <div class="function-ref">
+                    <h4><code>::push</code></h4>
+                    <p>Adds an item to the top of a stack.</p>
+                    <div class="code-block">
+                        <pre><code>::push(stack, value)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::pop</code></h4>
+                    <p>Removes and returns the top item from a stack.</p>
+                    <div class="code-block">
+                        <pre><code>::pop(stack)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::peek</code></h4>
+                    <p>Returns the top item without removing it.</p>
+                    <div class="code-block">
+                        <pre><code>::peek(stack)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::size</code></h4>
+                    <p>Returns the number of items in a stack.</p>
+                    <div class="code-block">
+                        <pre><code>::size(stack)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::empty</code></h4>
+                    <p>Checks if stack is empty (1=empty, 0=not empty).</p>
+                    <div class="code-block">
+                        <pre><code>::empty(stack)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Queue Functions</h3>
+            <div class="function-grid">
+                <div class="function-ref">
+                    <h4><code>::enqueue</code></h4>
+                    <p>Adds an item to the back of a queue.</p>
+                    <div class="code-block">
+                        <pre><code>::enqueue(queue, value)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::dequeue</code></h4>
+                    <p>Removes and returns the front item from a queue.</p>
+                    <div class="code-block">
+                        <pre><code>::dequeue(queue)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::front</code></h4>
+                    <p>Returns the front item without removing it.</p>
+                    <div class="code-block">
+                        <pre><code>::front(queue)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::back</code></h4>
+                    <p>Returns the back item without removing it.</p>
+                    <div class="code-block">
+                        <pre><code>::back(queue)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::isEmpty</code></h4>
+                    <p>Checks if queue is empty (1=empty, 0=not empty).</p>
+                    <div class="code-block">
+                        <pre><code>::isEmpty(queue)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::qsize</code></h4>
+                    <p>Returns the number of items in a queue.</p>
+                    <div class="code-block">
+                        <pre><code>::qsize(queue)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Linked List Functions</h3>
+            <div class="function-grid">
+                <div class="function-ref">
+                    <h4><code>::ladd</code></h4>
+                    <p>Adds an element to a linked list.</p>
+                    <div class="code-block">
+                        <pre><code>::ladd(list, value)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::lremove</code></h4>
+                    <p>Removes first occurrence of a value.</p>
+                    <div class="code-block">
+                        <pre><code>::lremove(list, value)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::lget</code></h4>
+                    <p>Gets element at specified index.</p>
+                    <div class="code-block">
+                        <pre><code>::lget(list, index)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::lsize</code></h4>
+                    <p>Returns the number of elements.</p>
+                    <div class="code-block">
+                        <pre><code>::lsize(list)</code></pre>
+                    </div>
+                </div>
+
+                <div class="function-ref">
+                    <h4><code>::lisEmpty</code></h4>
+                    <p>Checks if list is empty (1=empty, 0=not empty).</p>
+                    <div class="code-block">
+                        <pre><code>::lisEmpty(list)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Regular Expression Functions</h2>
+
+            <div class="function-ref">
+                <h4><code>::rmatch</code></h4>
+                <p>Tests if a pattern matches text (returns 1 for match, 0 for no match).</p>
+                <div class="code-block">
+                    <pre><code>::rmatch(regex, text)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::rfind_all</code></h4>
+                <p>Finds all positions where the pattern matches in the text.</p>
+                <div class="code-block">
+                    <pre><code>::rfind_all(regex, text)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::rreplace</code></h4>
+                <p>Replaces the first match of the pattern with replacement text.</p>
+                <div class="code-block">
+                    <pre><code>::rreplace(regex, text, replacement)</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::pattern_match</code></h4>
+                <p>Returns list of starting indices where pattern matches.</p>
+                <div class="code-block">
+                    <pre><code>::pattern_match(pattern, text)</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Temporal Functions</h2>
+            <p>See the <a href="temporal.html">Temporal Programming</a> page for comprehensive documentation of all temporal functions including:</p>
+            
+            <ul>
+                <li><code>::temporal_aggregate</code> - Aggregate historical data</li>
+                <li><code>::temporal_pattern</code> - Detect patterns in temporal data</li>
+                <li><code>::temporal_condition</code> - Check conditions over time windows</li>
+                <li><code>::sliding_window_stats</code> - Statistical analysis over sliding windows</li>
+                <li><code>::sensitivity_threshold</code> - Monitor threshold violations</li>
+                <li><code>::temporal_correlate</code> - Calculate correlations between temporal variables</li>
+                <li><code>::temporal_interpolate</code> - Interpolate missing temporal values</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Advanced Programming Patterns</h2>
+
+            <h3>Error Handling Pattern</h3>
+            <div class="code-block">
+                <pre><code>func$ safe_divide(a, b) => {
+    b == 0 ? "Error: Division by zero" : a / b
+}</code></pre>
+            </div>
+
+            <h3>Validation Pattern</h3>
+            <div class="code-block">
+                <pre><code>func$ validate_email(email) => {
+    let$ pattern := &amp;lt;regex&amp;gt; "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"//i
+    ::rmatch(pattern, email) == 1 ? "Valid" : "Invalid"
+}</code></pre>
+            </div>
+
+            <h3>Factory Pattern</h3>
+            <div class="code-block">
+                <pre><code>func$ create_user(type, name, email) => {
+    switch$ type {
+        case$ "admin" {
+            dict{"name" := name, "email" := email, "role" := "administrator", "permissions" := ["read", "write", "delete"]}
+        }
+        case$ "user" {
+            dict{"name" := name, "email" := email, "role" := "user", "permissions" := ["read"]}
+        }
+        default$ {
+            dict{"name" := name, "email" := email, "role" := "guest", "permissions" := []}
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>Iterator Pattern</h3>
+            <div class="code-block">
+                <pre><code>func$ process_list(list, processor) => {
+    loop$ i := 0 => ::len(list) - 1 {
+        processor(list[i])
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Function Reference Quick Guide</h2>
+            
+            <div class="quick-ref">
+                <div class="ref-category">
+                    <h3>I/O Operations</h3>
+                    <ul>
+                        <li><code>::print</code> - Output text</li>
+                        <li><code>::input</code> - Get user input</li>
+                        <li><code>::fopen</code> - Open file</li>
+                        <li><code>::fread</code> - Read from file</li>
+                        <li><code>::fwrite</code> - Write to file</li>
+                        <li><code>::fclose</code> - Close file</li>
+                    </ul>
+                </div>
+                
+                <div class="ref-category">
+                    <h3>Type Conversion</h3>
+                    <ul>
+                        <li><code>::to_str</code> - Number to string</li>
+                        <li><code>::to_int</code> - String to number</li>
+                    </ul>
+                </div>
+                
+                <div class="ref-category">
+                    <h3>HTTP Requests</h3>
+                    <ul>
+                        <li><code>::http_get</code> - GET request</li>
+                        <li><code>::http_post</code> - POST request</li>
+                        <li><code>::http_put</code> - PUT request</li>
+                        <li><code>::http_delete</code> - DELETE request</li>
+                    </ul>
+                </div>
+                
+                <div class="ref-category">
+                    <h3>Data Structures</h3>
+                    <ul>
+                        <li><code>::len</code>, <code>::append</code>, <code>::pop</code> - Lists</li>
+                        <li><code>::get</code>, <code>::set</code>, <code>::keys</code> - Dictionaries</li>
+                        <li><code>::push</code>, <code>::pop</code>, <code>::peek</code> - Stacks</li>
+                        <li><code>::enqueue</code>, <code>::dequeue</code> - Queues</li>
+                        <li><code>::ladd</code>, <code>::lget</code>, <code>::lsize</code> - Linked Lists</li>
+                    </ul>
+                </div>
+                
+                <div class="ref-category">
+                    <h3>Regular Expressions</h3>
+                    <ul>
+                        <li><code>::rmatch</code> - Test pattern match</li>
+                        <li><code>::rfind_all</code> - Find all matches</li>
+                        <li><code>::rreplace</code> - Replace matches</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tesseract Programming Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

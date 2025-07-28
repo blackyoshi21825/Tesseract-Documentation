@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples - Tesseract Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" id="logo-link">
+                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                </a>
+                <h1>Tesseract</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="getting-started.html">Getting Started</a>
+                <a href="syntax.html">Syntax</a>
+                <a href="temporal.html">Temporal</a>
+                <a href="data-structures.html">Data Structures</a>
+                <a href="functions.html">Functions</a>
+                <a href="examples.html" class="active">Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Examples and Use Cases</h1>
+
+        <section class="section">
+            <h2>Web API Integration</h2>
+            <p>Tesseract's built-in HTTP functions make it easy to integrate with web APIs and services.</p>
+
+            <h3>Simple Weather API Client</h3>
+            <div class="code-block">
+                <pre><code>func$ get_weather(city) => {
+    let$ url := "https://api.weather.com/current?city=@s" (city)
+    let$ headers := dict{"API-Key" := "your-api-key"}
+    let$ response := ::http_get(url, headers)
+    response
+}
+
+let$ weather := get_weather("New York")
+::print weather</code></pre>
+            </div>
+
+            <h3>REST API Client with Error Handling</h3>
+            <div class="code-block">
+                <pre><code>class$ APIClient {
+    let$ base_url := ""
+    let$ api_key := ""
+    
+    func$ init(base_url, api_key) => {
+        let$ self.base_url := base_url
+        let$ self.api_key := api_key
+    }
+    
+    func$ get(endpoint) => {
+        let$ url := "@s@s" (self.base_url, endpoint)
+        let$ headers := dict{"Authorization" := "Bearer @s" (self.api_key)}
+        ::http_get(url, headers)
+    }
+    
+    func$ post(endpoint, data) => {
+        let$ url := "@s@s" (self.base_url, endpoint)
+        let$ headers := dict{
+            "Authorization" := "Bearer @s" (self.api_key),
+            "Content-Type" := "application/json"
+        }
+        ::http_post(url, data, headers)
+    }
+}
+
+# Usage
+let$ client := APIClient()
+client.init("https://api.example.com/", "your-token")
+let$ users := client.get("/users")
+::print users</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>File Processing and Data Analysis</h2>
+
+            <h3>Log File Analyzer</h3>
+            <div class="code-block">
+                <pre><code>func$ analyze_log_file(filename) => {
+    let$ file := ::fopen(filename, "r")
+    let$ content := ::fread(file)
+    ::fclose(file)
+    
+    # Extract error patterns
+    let$ error_pattern := &amp;lt;regex&amp;gt; "ERROR.*"//g
+    let$ errors := ::rfind_all(error_pattern, content)
+    
+    # Extract warning patterns
+    let$ warning_pattern := &amp;lt;regex&amp;gt; "WARNING.*"//g
+    let$ warnings := ::rfind_all(warning_pattern, content)
+    
+    # Create analysis report
+    let$ report := dict{
+        "total_errors" := ::len(errors),
+        "total_warnings" := ::len(warnings),
+        "error_details" := errors,
+        "warning_details" := warnings
+    }
+    
+    report
+}
+
+# Usage
+let$ analysis := analyze_log_file("application.log")
+::print "Errors found: @s" (::get(analysis, "total_errors"))
+::print "Warnings found: @s" (::get(analysis, "total_warnings"))</code></pre>
+            </div>
+
+            <h3>CSV Data Processor</h3>
+            <div class="code-block">
+                <pre><code>func$ process_csv(filename) => {
+    let$ file := ::fopen(filename, "r")
+    let$ content := ::fread(file)
+    ::fclose(file)
+    
+    # Split into lines
+    let$ line_pattern := &amp;lt;regex&amp;gt; "\n"//g
+    let$ lines := ::rfind_all(line_pattern, content)
+    
+    let$ processed_data := []
+    let$ header := true
+    
+    loop$ i := 0 => ::len(lines) - 1 {
+        let$ line := lines[i]
+        if$ header {
+            let$ header := false
+            # Skip header row
+        } else {
+            # Process data row
+            let$ comma_pattern := &amp;lt;regex&amp;gt; ","//g
+            let$ fields := ::rfind_all(comma_pattern, line)
+            ::append(processed_data, fields)
+        }
+    }
+    
+    processed_data
+}
+
+let$ data := process_csv("sales_data.csv")
+::print "Processed @s rows" (::len(data))</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Temporal Monitoring Systems</h2>
+
+            <h3>System Performance Monitor</h3>
+            <div class="code-block">
+                <pre><code>class$ SystemMonitor {
+    let$ cpu_usage := &amp;lt;temp@60&gt;      # 60 readings history
+    let$ memory_usage := &amp;lt;temp@60&gt;   # 60 readings history
+    let$ disk_usage := &amp;lt;temp@60&gt;     # 60 readings history
+    
+    func$ init() => {
+        # Initialize temporal variables
+    }
+    
+    func$ record_metrics(cpu, memory, disk) => {
+        let$ self.cpu_usage := cpu
+        let$ self.memory_usage := memory
+        let$ self.disk_usage := disk
+    }
+    
+    func$ check_cpu_trend() => {
+        ::temporal_pattern("cpu_usage", "trend", 5.0)
+    }
+    
+    func$ get_average_memory() => {
+        ::temporal_aggregate("memory_usage", "avg", 10)
+    }
+    
+    func$ detect_anomalies() => {
+        let$ cpu_anomaly := ::temporal_pattern("cpu_usage", "anomaly", 2.0)
+        let$ memory_anomaly := ::temporal_pattern("memory_usage", "anomaly", 2.0)
+        let$ disk_anomaly := ::temporal_pattern("disk_usage", "anomaly", 2.0)
+        
+        dict{
+            "cpu_anomaly" := cpu_anomaly,
+            "memory_anomaly" := memory_anomaly,
+            "disk_anomaly" := disk_anomaly
+        }
+    }
+    
+    func$ generate_alert() => {
+        let$ anomalies := self.detect_anomalies()
+        
+        if$ ::get(anomalies, "cpu_anomaly") == 1 {
+            ::print "ALERT: CPU usage anomaly detected!"
+        }
+        
+        if$ ::get(anomalies, "memory_anomaly") == 1 {
+            ::print "ALERT: Memory usage anomaly detected!"
+        }
+        
+        if$ ::get(anomalies, "disk_anomaly") == 1 {
+            ::print "ALERT: Disk usage anomaly detected!"
+        }
+    }
+}
+
+# Usage
+let$ monitor := SystemMonitor()
+monitor.init()
+
+# Simulate monitoring loop
+loop$ i := 1 => 20 {
+    # Simulate getting system metrics
+    let$ cpu := 45 + (i * 2)  # Gradually increasing CPU
+    let$ memory := 60 + (i % 5)  # Fluctuating memory
+    let$ disk := 30
+    
+    monitor.record_metrics(cpu, memory, disk)
+    monitor.generate_alert()
+}</code></pre>
+            </div>
+
+            <h3>Financial Trading Algorithm</h3>
+            <div class="code-block">
+                <pre><code>class$ TradingBot {
+    let$ price_history := &amp;lt;temp@100&gt;
+    let$ volume_history := &amp;lt;temp@100&gt;
+    let$ position := 0  # 0 = no position, 1 = long, -1 = short
+    
+    func$ init() => {
+        let$ self.position := 0
+    }
+    
+    func$ update_market_data(price, volume) => {
+        let$ self.price_history := price
+        let$ self.volume_history := volume
+    }
+    
+    func$ calculate_moving_average(window) => {
+        ::temporal_aggregate("price_history", "avg", window)
+    }
+    
+    func$ detect_trend() => {
+        ::temporal_pattern("price_history", "trend", 2.0)
+    }
+    
+    func$ should_buy() => {
+        let$ short_ma := self.calculate_moving_average(5)
+        let$ long_ma := self.calculate_moving_average(20)
+        let$ trend := self.detect_trend()
+        
+        # Buy signal: short MA > long MA and upward trend
+        short_ma > long_ma and trend == 1
+    }
+    
+    func$ should_sell() => {
+        let$ short_ma := self.calculate_moving_average(5)
+        let$ long_ma := self.calculate_moving_average(20)
+        let$ trend := self.detect_trend()
+        
+        # Sell signal: short MA < long MA and downward trend
+        short_ma < long_ma and trend == -1
+    }
+    
+    func$ execute_trade() => {
+        if$ self.should_buy() and self.position != 1 {
+            let$ self.position := 1
+            ::print "BUY signal executed at @s" (self.price_history@0)
+        } elseif$ self.should_sell() and self.position != -1 {
+            let$ self.position := -1
+            ::print "SELL signal executed at @s" (self.price_history@0)
+        }
+    }
+}
+
+# Usage
+let$ bot := TradingBot()
+bot.init()
+
+# Simulate market data
+loop$ i := 1 => 50 {
+    let$ price := 100 + (i * 0.5) + (i % 10 - 5)  # Trending up with noise
+    let$ volume := 1000 + (i % 20)
+    
+    bot.update_market_data(price, volume)
+    bot.execute_trade()
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Task Management and Queue Systems</h2>
+
+            <h3>Task Queue System</h3>
+            <div class="code-block">
+                <pre><code>class$ TaskQueue {
+    let$ queue := &amp;lt;queue&amp;gt;
+    let$ running := false
+    let$ completed_tasks := []
+    let$ failed_tasks := []
+    
+    func$ init() => {
+        let$ self.queue := &amp;lt;queue&amp;gt;
+        let$ self.running := false
+        let$ self.completed_tasks := []
+        let$ self.failed_tasks := []
+    }
+    
+    func$ add_task(task) => {
+        ::enqueue(self.queue, task)
+        ::print "Task added: @s" (::get(task, "name"))
+    }
+    
+    func$ execute_task(task) => {
+        let$ task_type := ::get(task, "type")
+        let$ task_name := ::get(task, "name")
+        
+        ::print "Executing task: @s" (task_name)
+        
+        switch$ task_type {
+            case$ "http_request" {
+                let$ url := ::get(task, "url")
+                let$ response := ::http_get(url)
+                ::append(self.completed_tasks, task)
+                ::print "HTTP task completed: @s" (task_name)
+            }
+            case$ "file_process" {
+                let$ filename := ::get(task, "filename")
+                let$ file := ::fopen(filename, "r")
+                let$ content := ::fread(file)
+                ::fclose(file)
+                ::append(self.completed_tasks, task)
+                ::print "File processing completed: @s" (task_name)
+            }
+            case$ "calculation" {
+                let$ operation := ::get(task, "operation")
+                # Perform calculation
+                ::append(self.completed_tasks, task)
+                ::print "Calculation completed: @s" (task_name)
+            }
+            default$ {
+                ::append(self.failed_tasks, task)
+                ::print "Unknown task type: @s" (task_type)
+            }
+        }
+    }
+    
+    func$ process_tasks() => {
+        let$ self.running := true
+        ::print "Starting task processing..."
+        
+        while$ self.running and ::isEmpty(self.queue) == 0 {
+            let$ task := ::dequeue(self.queue)
+            self.execute_task(task)
+        }
+        
+        ::print "Task processing completed"
+        self.print_summary()
+    }
+    
+    func$ stop() => {
+        let$ self.running := false
+        ::print "Task processing stopped"
+    }
+    
+    func$ print_summary() => {
+        ::print "=== Task Summary ==="
+        ::print "Completed: @s" (::len(self.completed_tasks))
+        ::print "Failed: @s" (::len(self.failed_tasks))
+        ::print "Remaining: @s" (::qsize(self.queue))
+    }
+}
+
+# Usage
+let$ task_manager := TaskQueue()
+task_manager.init()
+
+# Add various tasks
+task_manager.add_task(dict{
+    "name" := "Fetch user data",
+    "type" := "http_request",
+    "url" := "https://api.example.com/users"
+})
+
+task_manager.add_task(dict{
+    "name" := "Process log file",
+    "type" := "file_process",
+    "filename" := "application.log"
+})
+
+task_manager.add_task(dict{
+    "name" := "Calculate statistics",
+    "type" := "calculation",
+    "operation" := "sum"
+})
+
+# Process all tasks
+task_manager.process_tasks()</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Configuration Management</h2>
+
+            <h3>Application Configuration Manager</h3>
+            <div class="code-block">
+                <pre><code>class$ ConfigManager {
+    let$ config := dict{}
+    let$ config_file := "app.conf"
+    let$ defaults := dict{}
+    
+    func$ init(filename) => {
+        let$ self.config_file := filename
+        let$ self.defaults := dict{
+            "debug" := false,
+            "port" := 8080,
+            "host" := "localhost",
+            "max_connections" := 100,
+            "timeout" := 30
+        }
+        self.load_defaults()
+        self.load_from_file()
+    }
+    
+    func$ load_defaults() => {
+        let$ keys := ::keys(self.defaults)
+        loop$ i := 0 => ::len(keys) - 1 {
+            let$ key := keys[i]
+            let$ value := ::get(self.defaults, key)
+            ::set(self.config, key, value)
+        }
+    }
+    
+    func$ load_from_file() => {
+        let$ file := ::fopen(self.config_file, "r")
+        let$ content := ::fread(file)
+        ::fclose(file)
+        
+        # Parse configuration content (simplified)
+        let$ line_pattern := &amp;lt;regex&amp;gt; "\n"//g
+        let$ lines := ::rfind_all(line_pattern, content)
+        
+        loop$ i := 0 => ::len(lines) - 1 {
+            let$ line := lines[i]
+            let$ equals_pattern := &amp;lt;regex&amp;gt; "="//
+            let$ parts := ::rfind_all(equals_pattern, line)
+            
+            if$ ::len(parts) == 2 {
+                let$ key := parts[0]
+                let$ value := parts[1]
+                ::set(self.config, key, value)
+            }
+        }
+    }
+    
+    func$ save_to_file() => {
+        let$ file := ::fopen(self.config_file, "w")
+        let$ keys := ::keys(self.config)
+        
+        loop$ i := 0 => ::len(keys) - 1 {
+            let$ key := keys[i]
+            let$ value := ::get(self.config, key)
+            ::fwrite(file, "@s=@s\n" (key, value))
+        }
+        
+        ::fclose(file)
+        ::print "Configuration saved to @s" (self.config_file)
+    }
+    
+    func$ get(key) => {
+        ::get(self.config, key)
+    }
+    
+    func$ set(key, value) => {
+        ::set(self.config, key, value)
+        ::print "Configuration updated: @s = @s" (key, value)
+    }
+    
+    func$ validate() => {
+        let$ port := self.get("port")
+        let$ max_conn := self.get("max_connections")
+        let$ timeout := self.get("timeout")
+        
+        let$ valid := true
+        
+        if$ port < 1 or port > 65535 {
+            ::print "ERROR: Invalid port number: @s" (port)
+            let$ valid := false
+        }
+        
+        if$ max_conn < 1 {
+            ::print "ERROR: Invalid max_connections: @s" (max_conn)
+            let$ valid := false
+        }
+        
+        if$ timeout < 1 {
+            ::print "ERROR: Invalid timeout: @s" (timeout)
+            let$ valid := false
+        }
+        
+        valid
+    }
+    
+    func$ print_config() => {
+        ::print "=== Current Configuration ==="
+        let$ keys := ::keys(self.config)
+        
+        loop$ i := 0 => ::len(keys) - 1 {
+            let$ key := keys[i]
+            let$ value := ::get(self.config, key)
+            ::print "@s: @s" (key, value)
+        }
+    }
+}
+
+# Usage
+let$ config := ConfigManager()
+config.init("myapp.conf")
+
+config.print_config()
+
+# Update configuration
+config.set("port", 9000)
+config.set("debug", true)
+
+# Validate and save
+if$ config.validate() {
+    config.save_to_file()
+} else {
+    ::print "Configuration validation failed"
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Data Processing Pipeline</h2>
+
+            <h3>ETL (Extract, Transform, Load) Pipeline</h3>
+            <div class="code-block">
+                <pre><code>class$ DataPipeline {
+    let$ raw_data := []
+    let$ processed_data := []
+    let$ errors := []
+    
+    func$ init() => {
+        let$ self.raw_data := []
+        let$ self.processed_data := []
+        let$ self.errors := []
+    }
+    
+    func$ extract_from_file(filename) => {
+        let$ file := ::fopen(filename, "r")
+        let$ content := ::fread(file)
+        ::fclose(file)
+        
+        # Parse JSON-like data (simplified)
+        let$ record_pattern := &amp;lt;regex&amp;gt; "\{[^}]+\}"//g
+        let$ records := ::rfind_all(record_pattern, content)
+        
+        loop$ i := 0 => ::len(records) - 1 {
+            ::append(self.raw_data, records[i])
+        }
+        
+        ::print "Extracted @s records from @s" (::len(records), filename)
+    }
+    
+    func$ extract_from_api(url) => {
+        let$ response := ::http_get(url)
+        # Parse API response
+        ::append(self.raw_data, response)
+        ::print "Extracted data from API: @s" (url)
+    }
+    
+    func$ transform_data() => {
+        ::print "Starting data transformation..."
+        
+        loop$ i := 0 => ::len(self.raw_data) - 1 {
+            let$ record := self.raw_data[i]
+            let$ transformed := self.transform_record(record)
+            
+            if$ transformed != "ERROR" {
+                ::append(self.processed_data, transformed)
+            } else {
+                ::append(self.errors, record)
+            }
+        }
+        
+        ::print "Transformation completed. Processed: @s, Errors: @s" 
+               (::len(self.processed_data), ::len(self.errors))
+    }
+    
+    func$ transform_record(record) => {
+        # Validate record format
+        let$ email_pattern := &amp;lt;regex&amp;gt; "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"//i
+        
+        if$ ::rmatch(email_pattern, record) == 1 {
+            # Transform valid record
+            let$ cleaned := ::rreplace(&amp;lt;regex&amp;gt; "\s+"//g, record, " ")
+            cleaned
+        } else {
+            "ERROR"
+        }
+    }
+    
+    func$ load_to_file(filename) => {
+        let$ file := ::fopen(filename, "w")
+        
+        loop$ i := 0 => ::len(self.processed_data) - 1 {
+            let$ record := self.processed_data[i]
+            ::fwrite(file, "@s\n" (record))
+        }
+        
+        ::fclose(file)
+        ::print "Loaded @s records to @s" (::len(self.processed_data), filename)
+    }
+    
+    func$ load_to_api(url) => {
+        loop$ i := 0 => ::len(self.processed_data) - 1 {
+            let$ record := self.processed_data[i]
+            let$ headers := dict{"Content-Type" := "application/json"}
+            ::http_post(url, record, headers)
+        }
+        
+        ::print "Loaded @s records to API: @s" (::len(self.processed_data), url)
+    }
+    
+    func$ run_pipeline(input_file, output_file) => {
+        ::print "=== Starting ETL Pipeline ==="
+        
+        # Extract
+        self.extract_from_file(input_file)
+        
+        # Transform
+        self.transform_data()
+        
+        # Load
+        self.load_to_file(output_file)
+        
+        # Report
+        self.generate_report()
+    }
+    
+    func$ generate_report() => {
+        ::print "=== Pipeline Report ==="
+        ::print "Raw records: @s" (::len(self.raw_data))
+        ::print "Processed records: @s" (::len(self.processed_data))
+        ::print "Error records: @s" (::len(self.errors))
+        
+        if$ ::len(self.errors) > 0 {
+            ::print "Error details:"
+            loop$ i := 0 => ::len(self.errors) - 1 {
+                ::print "  @s" (self.errors[i])
+            }
+        }
+    }
+}
+
+# Usage
+let$ pipeline := DataPipeline()
+pipeline.init()
+pipeline.run_pipeline("input_data.txt", "processed_data.txt")</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Web Scraper</h2>
+
+            <h3>Simple Web Content Extractor</h3>
+            <div class="code-block">
+                <pre><code>class$ WebScraper {
+    let$ scraped_data := []
+    let$ failed_urls := []
+    
+    func$ init() => {
+        let$ self.scraped_data := []
+        let$ self.failed_urls := []
+    }
+    
+    func$ scrape_titles(url) => {
+        let$ response := ::http_get(url)
+        
+        if$ response != "" {
+            let$ title_pattern := &amp;lt;regex&amp;gt; "&lt;title&gt;(.*?)&lt;/title&gt;"//i
+            let$ titles := ::rfind_all(title_pattern, response)
+            
+            let$ result := dict{
+                "url" := url,
+                "titles" := titles,
+                "content_length" := ::len(response)
+            }
+            
+            ::append(self.scraped_data, result)
+            ::print "Scraped @s titles from @s" (::len(titles), url)
+            result
+        } else {
+            ::append(self.failed_urls, url)
+            ::print "Failed to scrape: @s" (url)
+            dict{}
+        }
+    }
+    
+    func$ scrape_links(url) => {
+        let$ response := ::http_get(url)
+        
+        if$ response != "" {
+            let$ link_pattern := &amp;lt;regex&amp;gt; "&lt;a[^&gt;]+href=[\"']([^\"']+)[\"']"//gi
+            let$ links := ::rfind_all(link_pattern, response)
+            
+            let$ result := dict{
+                "url" := url,
+                "links" := links,
+                "link_count" := ::len(links)
+            }
+            
+            ::append(self.scraped_data, result)
+            ::print "Found @s links on @s" (::len(links), url)
+            result
+        } else {
+            ::append(self.failed_urls, url)
+            dict{}
+        }
+    }
+    
+    func$ scrape_multiple_urls(urls, scrape_type) => {
+        ::print "Starting batch scraping of @s URLs" (::len(urls))
+        
+        loop$ i := 0 => ::len(urls) - 1 {
+            let$ url := urls[i]
+            
+            switch$ scrape_type {
+                case$ "titles" {
+                    self.scrape_titles(url)
+                }
+                case$ "links" {
+                    self.scrape_links(url)
+                }
+                default$ {
+                    ::print "Unknown scrape type: @s" (scrape_type)
+                }
+            }
+        }
+        
+        self.generate_scraping_report()
+    }
+    
+    func$ generate_scraping_report() => {
+        ::print "=== Scraping Report ==="
+        ::print "Successfully scraped: @s URLs" (::len(self.scraped_data))
+        ::print "Failed to scrape: @s URLs" (::len(self.failed_urls))
+        
+        if$ ::len(self.failed_urls) > 0 {
+            ::print "Failed URLs:"
+            loop$ i := 0 => ::len(self.failed_urls) - 1 {
+                ::print "  @s" (self.failed_urls[i])
+            }
+        }
+    }
+    
+    func$ export_results(filename) => {
+        let$ file := ::fopen(filename, "w")
+        
+        loop$ i := 0 => ::len(self.scraped_data) - 1 {
+            let$ data := self.scraped_data[i]
+            let$ url := ::get(data, "url")
+            ::fwrite(file, "URL: @s\n" (url))
+            
+            # Export based on data type
+            if$ ::get(data, "titles") != "" {
+                let$ titles := ::get(data, "titles")
+                loop$ j := 0 => ::len(titles) - 1 {
+                    ::fwrite(file, "  Title: @s\n" (titles[j]))
+                }
+            }
+            
+            if$ ::get(data, "links") != "" {
+                let$ links := ::get(data, "links")
+                ::fwrite(file, "  Links found: @s\n" (::len(links)))
+            }
+            
+            ::fwrite(file, "\n")
+        }
+        
+        ::fclose(file)
+        ::print "Results exported to @s" (filename)
+    }
+}
+
+# Usage
+let$ scraper := WebScraper()
+scraper.init()
+
+# Scrape titles from multiple sites
+let$ urls := [
+    "https://example.com",
+    "https://news.example.com",
+    "https://blog.example.com"
+]
+
+scraper.scrape_multiple_urls(urls, "titles")
+scraper.export_results("scraped_titles.txt")</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Debugging and Troubleshooting</h2>
+
+            <h3>Common Issues and Solutions</h3>
+
+            <h4>Syntax Errors</h4>
+            <ul>
+                <li>Missing semicolons at end of statements</li>
+                <li>Unmatched braces in code blocks</li>
+                <li>Incorrect operator usage</li>
+                <li>Invalid variable names</li>
+            </ul>
+
+            <h4>Runtime Errors</h4>
+            <ul>
+                <li>Division by zero</li>
+                <li>Array index out of bounds</li>
+                <li>File not found</li>
+                <li>Network connectivity issues</li>
+            </ul>
+
+            <h3>Debugging Techniques</h3>
+            <div class="code-block">
+                <pre><code># Use print statements for variable inspection
+func$ debug_function(value) => {
+    ::print "DEBUG: Input value = @s" (value)
+    
+    let$ result := value * 2
+    ::print "DEBUG: Calculated result = @s" (result)
+    
+    result
+}
+
+# Validate input parameters
+func$ safe_divide(a, b) => {
+    ::print "DEBUG: Dividing @s by @s" (a, b)
+    
+    if$ b == 0 {
+        ::print "ERROR: Division by zero attempted"
+        0
+    } else {
+        a / b
+    }
+}
+
+# Test edge cases
+func$ test_edge_cases() => {
+    ::print "Testing edge cases..."
+    
+    # Test with zero
+    ::print "Result with zero: @s" (safe_divide(10, 0))
+    
+    # Test with negative numbers
+    ::print "Result with negative: @s" (safe_divide(-10, 2))
+    
+    # Test with large numbers
+    ::print "Result with large numbers: @s" (safe_divide(1000000, 1000))
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Performance Optimization Examples</h2>
+
+            <h3>Efficient Data Processing</h3>
+            <div class="code-block">
+                <pre><code># Optimize loop structures
+func$ process_large_dataset(data) => {
+    let$ results := []
+    let$ batch_size := 100
+    let$ total_items := ::len(data)
+    
+    ::print "Processing @s items in batches of @s" (total_items, batch_size)
+    
+    loop$ i := 0 => total_items - 1, batch_size {
+        let$ batch_end := i + batch_size - 1
+        if$ batch_end >= total_items {
+            let$ batch_end := total_items - 1
+        }
+        
+        # Process batch
+        loop$ j := i => batch_end {
+            let$ processed_item := process_item(data[j])
+            ::append(results, processed_item)
+        }
+        
+        ::print "Processed batch @s to @s" (i, batch_end)
+    }
+    
+    results
+}
+
+# Use appropriate data structures
+func$ optimize_lookups() => {
+    # Use dictionary for fast key-based lookups
+    let$ user_cache := dict{}
+    
+    func$ get_user(user_id) => {
+        # Check cache first
+        let$ cached_user := ::get(user_cache, user_id)
+        if$ cached_user != "" {
+            cached_user
+        } else {
+            # Fetch from API and cache
+            let$ user := ::http_get("https://api.example.com/users/@s" (user_id))
+            ::set(user_cache, user_id, user)
+            user
+        }
+    }
+    
+    get_user
+}
+
+# Minimize I/O operations
+func$ batch_file_operations(filenames) => {
+    let$ all_content := []
+    
+    # Read all files in one batch
+    loop$ i := 0 => ::len(filenames) - 1 {
+        let$ file := ::fopen(filenames[i], "r")
+        let$ content := ::fread(file)
+        ::fclose(file)
+        ::append(all_content, content)
+    }
+    
+    # Process all content
+    let$ processed := []
+    loop$ i := 0 => ::len(all_content) - 1 {
+        let$ result := process_content(all_content[i])
+        ::append(processed, result)
+    }
+    
+    processed
+}</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tesseract Programming Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
