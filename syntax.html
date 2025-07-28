@@ -409,9 +409,30 @@ let$ number := ::to_int(number_str)
 ::print "Parsed number: @s" (number)</code></pre>
             </div>
 
+            <h3>String Interpolation</h3>
+            <p>String interpolation allows you to embed variables directly into strings using ${} syntax:</p>
+            <div class="code-block">
+                <pre><code>let$name := "World"
+let$age := 25
+::print "Hello ${name}!"  # prints "Hello World!"
+::print "I am ${age} years old"  # prints "I am 25 years old"</code></pre>
+            </div>
+
             <h3>Pattern Matching</h3>
             <div class="code-block">
                 <pre><code>::pattern_match(pattern, text)  // returns list of starting indices</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Sets</h2>
+            <p>Sets are collections that automatically remove duplicate values. They're useful when you need to store unique items or perform set operations.</p>
+
+            <h3>Set Creation</h3>
+            <p>Create sets using curly braces {}. Duplicates are automatically removed:</p>
+            <div class="code-block">
+                <pre><code>let$mySet := {1, 2, 3, 2, 1}  # Automatically removes duplicates
+::print mySet  # prints {1, 2, 3}</code></pre>
             </div>
         </section>
 
