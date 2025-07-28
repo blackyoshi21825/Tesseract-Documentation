@@ -521,6 +521,75 @@ let$ weather := get_weather("New York")
         </section>
 
         <section class="section">
+            <h2>String Methods</h2>
+            <p>Tesseract provides several built-in string manipulation methods for common text processing tasks.</p>
+
+            <div class="function-ref">
+                <h4><code>::split</code></h4>
+                <p>Split string by delimiter, returns list.</p>
+                <div class="code-block">
+                    <pre><code>::split(string, delimiter)
+::split("hello,world", ",")  # returns ["hello", "world"]</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::join</code></h4>
+                <p>Join list elements with separator.</p>
+                <div class="code-block">
+                    <pre><code>::join(list, separator)
+let$ words := ["hello", "world"]
+::join(words, " ")  # returns "hello world"</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::replace</code></h4>
+                <p>Replace occurrences of old with new.</p>
+                <div class="code-block">
+                    <pre><code>::replace(string, old, new)
+::replace("hello world", "world", "tesseract")  # returns "hello tesseract"</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::substring</code></h4>
+                <p>Extract substring by position and length.</p>
+                <div class="code-block">
+                    <pre><code>::substring(string, start, length)
+::substring("hello world", 6, 5)  # returns "world"</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::length</code></h4>
+                <p>Get string length.</p>
+                <div class="code-block">
+                    <pre><code>::length(string)
+::length("hello")  # returns 5</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::upper</code></h4>
+                <p>Convert to uppercase.</p>
+                <div class="code-block">
+                    <pre><code>::upper(string)
+::upper("hello")  # returns "HELLO"</code></pre>
+                </div>
+            </div>
+
+            <div class="function-ref">
+                <h4><code>::lower</code></h4>
+                <p>Convert to lowercase.</p>
+                <div class="code-block">
+                    <pre><code>::lower(string)
+::lower("HELLO")  # returns "hello"</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
             <h2>Regular Expression Functions</h2>
 
             <div class="function-ref">
@@ -638,6 +707,18 @@ let$ weather := get_weather("New York")
                     <ul>
                         <li><code>::to_str</code> - Number to string</li>
                         <li><code>::to_int</code> - String to number</li>
+                    </ul>
+                </div>
+
+                <div class="ref-category">
+                    <h3>String Methods</h3>
+                    <ul>
+                        <li><code>::split</code> - Split by delimiter</li>
+                        <li><code>::join</code> - Join with separator</li>
+                        <li><code>::replace</code> - Replace text</li>
+                        <li><code>::substring</code> - Extract substring</li>
+                        <li><code>::length</code> - Get string length</li>
+                        <li><code>::upper</code>, <code>::lower</code> - Case conversion</li>
                     </ul>
                 </div>
 
