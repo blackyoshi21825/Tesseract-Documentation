@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Functions & Built-ins - Tesseract Documentation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="index.html" id="logo-link">
-                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                    <img src="logo.jpg" alt="Tesseract Logo" id="logo" style="display: none;">
                 </a>
                 <h1>Tesseract</h1>
             </div>
@@ -31,7 +33,8 @@
 
         <section class="section">
             <h2>User-Defined Functions</h2>
-            <p>Functions are reusable blocks of code that perform specific tasks. Think of them as mini-programs within your program. They take inputs (parameters), process them, and often return a result.</p>
+            <p>Functions are reusable blocks of code that perform specific tasks. Think of them as mini-programs within
+                your program. They take inputs (parameters), process them, and often return a result.</p>
 
             <h3>Function Anatomy</h3>
             <div class="code-block">
@@ -51,7 +54,9 @@
             </ul>
 
             <h3>Return Values</h3>
-            <p>Unlike many languages that require explicit <code>return</code> statements, Tesseract automatically returns the value of the last expression in the function. This makes functions more concise and reduces boilerplate code.</p>
+            <p>Unlike many languages that require explicit <code>return</code> statements, Tesseract automatically
+                returns the value of the last expression in the function. This makes functions more concise and reduces
+                boilerplate code.</p>
 
             <h3>Function Examples</h3>
 
@@ -230,7 +235,8 @@ let$ content := ::fread(file)
 
         <section class="section">
             <h2>HTTP Web Request Functions</h2>
-            <p>HTTP (HyperText Transfer Protocol) functions allow your programs to communicate with web services, APIs, and websites.</p>
+            <p>HTTP (HyperText Transfer Protocol) functions allow your programs to communicate with web services, APIs,
+                and websites.</p>
 
             <div class="function-ref">
                 <h4><code>::http_get</code></h4>
@@ -552,8 +558,9 @@ let$ weather := get_weather("New York")
 
         <section class="section">
             <h2>Temporal Functions</h2>
-            <p>See the <a href="temporal.html">Temporal Programming</a> page for comprehensive documentation of all temporal functions including:</p>
-            
+            <p>See the <a href="temporal.html">Temporal Programming</a> page for comprehensive documentation of all
+                temporal functions including:</p>
+
             <ul>
                 <li><code>::temporal_aggregate</code> - Aggregate historical data</li>
                 <li><code>::temporal_pattern</code> - Detect patterns in temporal data</li>
@@ -612,7 +619,7 @@ let$ weather := get_weather("New York")
 
         <section class="section">
             <h2>Function Reference Quick Guide</h2>
-            
+
             <div class="quick-ref">
                 <div class="ref-category">
                     <h3>I/O Operations</h3>
@@ -625,7 +632,7 @@ let$ weather := get_weather("New York")
                         <li><code>::fclose</code> - Close file</li>
                     </ul>
                 </div>
-                
+
                 <div class="ref-category">
                     <h3>Type Conversion</h3>
                     <ul>
@@ -633,7 +640,7 @@ let$ weather := get_weather("New York")
                         <li><code>::to_int</code> - String to number</li>
                     </ul>
                 </div>
-                
+
                 <div class="ref-category">
                     <h3>HTTP Requests</h3>
                     <ul>
@@ -643,7 +650,7 @@ let$ weather := get_weather("New York")
                         <li><code>::http_delete</code> - DELETE request</li>
                     </ul>
                 </div>
-                
+
                 <div class="ref-category">
                     <h3>Data Structures</h3>
                     <ul>
@@ -654,7 +661,7 @@ let$ weather := get_weather("New York")
                         <li><code>::ladd</code>, <code>::lget</code>, <code>::lsize</code> - Linked Lists</li>
                     </ul>
                 </div>
-                
+
                 <div class="ref-category">
                     <h3>Regular Expressions</h3>
                     <ul>
@@ -675,4 +682,5 @@ let$ weather := get_weather("New York")
 
     <script src="script.js"></script>
 </body>
+
 </html>

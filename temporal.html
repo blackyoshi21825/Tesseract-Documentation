@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temporal Programming - Tesseract Documentation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="index.html" id="logo-link">
-                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                    <img src="logo.jpg" alt="Tesseract Logo" id="logo" style="display: none;">
                 </a>
                 <h1>Tesseract</h1>
             </div>
@@ -31,21 +33,31 @@
 
         <section class="section">
             <h2>Introduction</h2>
-            <p>Tesseract introduces a revolutionary approach to programming with its built-in temporal programming capabilities. Unlike traditional programming languages where variables only hold their current value, Tesseract allows variables to maintain a complete history of their past values. This enables developers to create time-aware applications that can analyze trends, detect patterns, and make decisions based on historical data without requiring external databases or complex data structures.</p>
-            
-            <p>Temporal programming is particularly valuable for applications involving sensor data, financial analysis, system monitoring, and any scenario where understanding how values change over time is crucial for decision-making.</p>
+            <p>Tesseract introduces a revolutionary approach to programming with its built-in temporal programming
+                capabilities. Unlike traditional programming languages where variables only hold their current value,
+                Tesseract allows variables to maintain a complete history of their past values. This enables developers
+                to create time-aware applications that can analyze trends, detect patterns, and make decisions based on
+                historical data without requiring external databases or complex data structures.</p>
+
+            <p>Temporal programming is particularly valuable for applications involving sensor data, financial analysis,
+                system monitoring, and any scenario where understanding how values change over time is crucial for
+                decision-making.</p>
         </section>
 
         <section class="section">
             <h2>Temporal Variables</h2>
-            <p>Temporal variables are the foundation of time-aware programming in Tesseract. When you declare a temporal variable, you specify how many historical values it should remember. This creates a sliding window of data that automatically manages memory and provides instant access to past values.</p>
+            <p>Temporal variables are the foundation of time-aware programming in Tesseract. When you declare a temporal
+                variable, you specify how many historical values it should remember. This creates a sliding window of
+                data that automatically manages memory and provides instant access to past values.</p>
 
             <h3>Declaration</h3>
             <div class="code-block">
                 <pre><code>let$ var := &amp;lt;temp@N&amp;gt;  # N is the history size</code></pre>
             </div>
 
-            <p>The history size determines how many previous values the variable will remember. For example, <code>&amp;lt;temp@5&amp;gt;</code> will remember the current value plus the 4 most recent previous values.</p>
+            <p>The history size determines how many previous values the variable will remember. For example,
+                <code>&amp;lt;temp@5&amp;gt;</code> will remember the current value plus the 4 most recent previous
+                values.</p>
 
             <h3>Assignment and History Management</h3>
             <div class="code-block">
@@ -55,7 +67,9 @@ let$ x := 20           # Second assignment: x@0 = 20, x@1 = 10
 let$ x := 30           # Third assignment: x@0 = 30, x@1 = 20, x@2 = 10</code></pre>
             </div>
 
-            <p>Each time you assign a new value to a temporal variable, the previous values shift down in the history chain. The oldest value beyond the specified history size is automatically discarded, ensuring efficient memory usage.</p>
+            <p>Each time you assign a new value to a temporal variable, the previous values shift down in the history
+                chain. The oldest value beyond the specified history size is automatically discarded, ensuring efficient
+                memory usage.</p>
 
             <h3>Accessing Historical Values</h3>
             <div class="code-block">
@@ -64,14 +78,19 @@ x@1  # previous value (20) - one step back in time
 x@2  # value before that (10) - two steps back in time</code></pre>
             </div>
 
-            <p>The <code>@</code> operator followed by an index number allows you to access any value in the variable's history. Index 0 always represents the current value, while higher indices represent progressively older values.</p>
+            <p>The <code>@</code> operator followed by an index number allows you to access any value in the variable's
+                history. Index 0 always represents the current value, while higher indices represent progressively older
+                values.</p>
         </section>
 
         <section class="section">
             <h2>Temporal Loops</h2>
-            <p>Temporal loops provide an elegant way to iterate through a variable's entire history without manually accessing each index. This is particularly useful when you need to process all historical values or search for specific patterns across time.</p>
+            <p>Temporal loops provide an elegant way to iterate through a variable's entire history without manually
+                accessing each index. This is particularly useful when you need to process all historical values or
+                search for specific patterns across time.</p>
 
-            <p>The temporal loop automatically iterates from the most recent value (index 0) to the oldest available value in the history:</p>
+            <p>The temporal loop automatically iterates from the most recent value (index 0) to the oldest available
+                value in the history:</p>
 
             <div class="code-block">
                 <pre><code>temporal$ t in x {
@@ -83,19 +102,25 @@ x@2  # value before that (10) - two steps back in time</code></pre>
 # Historical value: 10  (oldest value)</code></pre>
             </div>
 
-            <p>This loop structure is more efficient than manually iterating through indices and automatically handles variables with different history sizes. It's commonly used for calculating aggregates, searching for specific values, or applying transformations to historical data.</p>
+            <p>This loop structure is more efficient than manually iterating through indices and automatically handles
+                variables with different history sizes. It's commonly used for calculating aggregates, searching for
+                specific values, or applying transformations to historical data.</p>
         </section>
 
         <section class="section">
             <h2>Built-in Temporal Functions</h2>
-            <p>Tesseract provides a comprehensive suite of built-in functions specifically designed for temporal data analysis. These functions eliminate the need for manual loops and complex calculations when working with historical data.</p>
+            <p>Tesseract provides a comprehensive suite of built-in functions specifically designed for temporal data
+                analysis. These functions eliminate the need for manual loops and complex calculations when working with
+                historical data.</p>
 
             <h3>Temporal Aggregation</h3>
             <div class="code-block">
                 <pre><code>::temporal_aggregate(variable_name, operation, window_size)</code></pre>
             </div>
 
-            <p>This powerful function performs mathematical aggregations over a sliding window of historical values. It's essential for calculating moving averages, finding extremes in recent data, or summarizing trends over specific time periods.</p>
+            <p>This powerful function performs mathematical aggregations over a sliding window of historical values.
+                It's essential for calculating moving averages, finding extremes in recent data, or summarizing trends
+                over specific time periods.</p>
 
             <h4>Parameters:</h4>
             <ul>
@@ -127,7 +152,9 @@ let$ sensor := 110
                 <pre><code>::temporal_pattern(variable_name, pattern_type, threshold)</code></pre>
             </div>
 
-            <p>Pattern detection is crucial for understanding the behavior of time-series data. This function uses sophisticated algorithms to automatically identify common patterns that would be difficult to detect manually.</p>
+            <p>Pattern detection is crucial for understanding the behavior of time-series data. This function uses
+                sophisticated algorithms to automatically identify common patterns that would be difficult to detect
+                manually.</p>
 
             <h4>Parameters:</h4>
             <ul>
@@ -138,9 +165,13 @@ let$ sensor := 110
 
             <h4>Pattern Types Explained:</h4>
             <ul>
-                <li><strong>"trend"</strong>: Analyzes the overall direction of data movement. Returns 1 for upward trends (values generally increasing), -1 for downward trends (values decreasing), and 0 for stable periods (no clear direction).</li>
-                <li><strong>"cycle"</strong>: Identifies repeating patterns in the data, useful for detecting seasonal variations or periodic behavior in systems.</li>
-                <li><strong>"anomaly"</strong>: Uses statistical z-score analysis to identify values that deviate significantly from the historical norm, helping detect outliers or system failures.</li>
+                <li><strong>"trend"</strong>: Analyzes the overall direction of data movement. Returns 1 for upward
+                    trends (values generally increasing), -1 for downward trends (values decreasing), and 0 for stable
+                    periods (no clear direction).</li>
+                <li><strong>"cycle"</strong>: Identifies repeating patterns in the data, useful for detecting seasonal
+                    variations or periodic behavior in systems.</li>
+                <li><strong>"anomaly"</strong>: Uses statistical z-score analysis to identify values that deviate
+                    significantly from the historical norm, helping detect outliers or system failures.</li>
             </ul>
 
             <h4>Examples:</h4>
@@ -171,7 +202,8 @@ let$ sensor := 200
             <h4>Parameters:</h4>
             <ul>
                 <li><strong>variable_name</strong>: String name of the temporal variable</li>
-                <li><strong>condition</strong>: Condition string (">", "<", "==", "between", "increasing", "stable")</li>
+                <li><strong>condition</strong>: Condition string (">", "<", "==" , "between" , "increasing" , "stable"
+                        )</li>
                 <li><strong>start_index</strong>: Starting position in history (0 = current, 1 = previous, etc.)</li>
                 <li><strong>window_size</strong>: Number of consecutive values to check</li>
             </ul>
@@ -345,10 +377,12 @@ let$ data := 20
 
         <section class="section">
             <h2>Use Cases</h2>
-            <p>Temporal programming in Tesseract opens up numerous practical applications across various domains. Here are some real-world scenarios where temporal capabilities prove invaluable:</p>
+            <p>Temporal programming in Tesseract opens up numerous practical applications across various domains. Here
+                are some real-world scenarios where temporal capabilities prove invaluable:</p>
 
             <h3>System Monitoring</h3>
-            <p>System monitoring applications benefit greatly from temporal programming. Instead of just checking current values, you can analyze trends and patterns to predict failures before they occur.</p>
+            <p>System monitoring applications benefit greatly from temporal programming. Instead of just checking
+                current values, you can analyze trends and patterns to predict failures before they occur.</p>
             <div class="code-block">
                 <pre><code>let$ pressure := &amp;lt;temp@50&amp;gt;
 
@@ -369,7 +403,8 @@ if$ not ::temporal_condition("pressure", "< 60", 0, 3) {
             </div>
 
             <h3>Financial Analysis</h3>
-            <p>Financial and statistical applications often require moving averages to smooth out short-term fluctuations and identify underlying trends.</p>
+            <p>Financial and statistical applications often require moving averages to smooth out short-term
+                fluctuations and identify underlying trends.</p>
             <div class="code-block">
                 <pre><code>let$ price := &amp;lt;temp@5&amp;gt;
 let$ price := 100
@@ -388,7 +423,8 @@ func$ moving_average() => {
             </div>
 
             <h3>State Tracking</h3>
-            <p>Many applications need to track state changes over time. Temporal variables provide an elegant solution for detecting transitions, measuring state durations, and analyzing state patterns.</p>
+            <p>Many applications need to track state changes over time. Temporal variables provide an elegant solution
+                for detecting transitions, measuring state durations, and analyzing state patterns.</p>
             <div class="code-block">
                 <pre><code>let$ state := &amp;lt;temp@10&amp;gt;
 let$ state := "idle"
@@ -402,7 +438,9 @@ if$ state@0 != state@1 {
             </div>
 
             <h3>Time Series Analysis</h3>
-            <p>Complex time series analysis becomes manageable with temporal programming. You can implement sophisticated algorithms for trend detection, forecasting, and pattern recognition directly within the language.</p>
+            <p>Complex time series analysis becomes manageable with temporal programming. You can implement
+                sophisticated algorithms for trend detection, forecasting, and pattern recognition directly within the
+                language.</p>
             <div class="code-block">
                 <pre><code>let$ sensor := &amp;lt;temp@100&amp;gt;
 
@@ -425,7 +463,9 @@ func$ detect_trend() => {
 
         <section class="section">
             <h2>Memory Management</h2>
-            <p>Tesseract's temporal programming system is designed with efficiency in mind. The language automatically handles all aspects of memory management for temporal variables, ensuring optimal performance without requiring manual intervention from developers.</p>
+            <p>Tesseract's temporal programming system is designed with efficiency in mind. The language automatically
+                handles all aspects of memory management for temporal variables, ensuring optimal performance without
+                requiring manual intervention from developers.</p>
 
             <h3>Key Memory Management Features:</h3>
             <ul>
@@ -436,19 +476,29 @@ func$ detect_trend() => {
                 <li>Efficient circular buffer implementation for optimal performance</li>
             </ul>
 
-            <p>This automatic management means developers can focus on application logic rather than worrying about memory allocation, deallocation, or optimization of historical data storage.</p>
+            <p>This automatic management means developers can focus on application logic rather than worrying about
+                memory allocation, deallocation, or optimization of historical data storage.</p>
         </section>
 
         <section class="section">
             <h2>Best Practices</h2>
-            <p>To maximize the effectiveness of temporal programming in Tesseract, follow these established best practices:</p>
+            <p>To maximize the effectiveness of temporal programming in Tesseract, follow these established best
+                practices:</p>
 
             <ol>
-                <li><strong>Choose Appropriate History Size</strong>: Carefully balance memory usage with the depth of history you actually need. A larger history size consumes more memory but provides richer historical context.</li>
-                <li><strong>Initialize Before Use</strong>: Always assign initial values to temporal variables before attempting to access their history. Uninitialized temporal variables may contain undefined values.</li>
-                <li><strong>Check Bounds Carefully</strong>: Accessing x@N where N exceeds the available history returns undefined behavior. Always ensure your index values are within the valid range.</li>
-                <li><strong>Use Temporal Loops When Possible</strong>: Temporal loops are more efficient than manual history iteration and automatically handle boundary conditions.</li>
-                <li><strong>Consider Performance Implications</strong>: While temporal operations are optimized, excessive use of large history sizes or frequent temporal function calls in tight loops may impact performance.</li>
+                <li><strong>Choose Appropriate History Size</strong>: Carefully balance memory usage with the depth of
+                    history you actually need. A larger history size consumes more memory but provides richer historical
+                    context.</li>
+                <li><strong>Initialize Before Use</strong>: Always assign initial values to temporal variables before
+                    attempting to access their history. Uninitialized temporal variables may contain undefined values.
+                </li>
+                <li><strong>Check Bounds Carefully</strong>: Accessing x@N where N exceeds the available history returns
+                    undefined behavior. Always ensure your index values are within the valid range.</li>
+                <li><strong>Use Temporal Loops When Possible</strong>: Temporal loops are more efficient than manual
+                    history iteration and automatically handle boundary conditions.</li>
+                <li><strong>Consider Performance Implications</strong>: While temporal operations are optimized,
+                    excessive use of large history sizes or frequent temporal function calls in tight loops may impact
+                    performance.</li>
             </ol>
         </section>
 
@@ -509,4 +559,5 @@ func$ check_danger() => {
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Structures - Tesseract Documentation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="index.html" id="logo-link">
-                    <img src="" alt="Tesseract Logo" id="logo" style="display: none;">
+                    <img src="logo.jpg" alt="Tesseract Logo" id="logo" style="display: none;">
                 </a>
                 <h1>Tesseract</h1>
             </div>
@@ -31,12 +33,15 @@
 
         <section class="section">
             <h2>Overview</h2>
-            <p>Data structures are specialized ways of organizing and storing data to make it easy to access and modify. Different structures are optimized for different types of operations. Choosing the right data structure can make your program much more efficient.</p>
+            <p>Data structures are specialized ways of organizing and storing data to make it easy to access and modify.
+                Different structures are optimized for different types of operations. Choosing the right data structure
+                can make your program much more efficient.</p>
         </section>
 
         <section class="section">
             <h2>Lists (Dynamic Arrays)</h2>
-            <p>Lists are ordered collections of items, like a shopping list or a roster of names. They're one of the most versatile and commonly used data structures.</p>
+            <p>Lists are ordered collections of items, like a shopping list or a roster of names. They're one of the
+                most versatile and commonly used data structures.</p>
 
             <h3>What Makes Lists Special</h3>
             <ul>
@@ -93,7 +98,8 @@ let$ mixed := [1, "hello", true, 3.14]     # Mixed data types</code></pre>
 
         <section class="section">
             <h2>Dictionaries (Key-Value Pairs)</h2>
-            <p>Dictionaries store data as key-value pairs, like a real dictionary where you look up a word (key) to find its definition (value). They're perfect when you need to associate pieces of information together.</p>
+            <p>Dictionaries store data as key-value pairs, like a real dictionary where you look up a word (key) to find
+                its definition (value). They're perfect when you need to associate pieces of information together.</p>
 
             <h3>What Makes Dictionaries Useful</h3>
             <ul>
@@ -143,10 +149,12 @@ let$ scores := dict{"math" := 95, "science" := 87, "english" := 92}</code></pre>
 
         <section class="section">
             <h2>Stacks (Last-In-First-Out)</h2>
-            <p>A stack is like a stack of plates - you can only add or remove plates from the top. This "Last-In-First-Out" (LIFO) behavior is useful for many programming tasks.</p>
+            <p>A stack is like a stack of plates - you can only add or remove plates from the top. This
+                "Last-In-First-Out" (LIFO) behavior is useful for many programming tasks.</p>
 
             <h3>How Stacks Work</h3>
-            <p>Imagine a stack of books on your desk. When you add a new book, it goes on top. When you need a book, you take the top one. You can't easily grab a book from the middle without moving the ones above it.</p>
+            <p>Imagine a stack of books on your desk. When you add a new book, it goes on top. When you need a book, you
+                take the top one. You can't easily grab a book from the middle without moving the ones above it.</p>
 
             <h3>Creation</h3>
             <div class="code-block">
@@ -192,10 +200,12 @@ let$ scores := dict{"math" := 95, "science" := 87, "english" := 92}</code></pre>
 
         <section class="section">
             <h2>Queues (First-In-First-Out)</h2>
-            <p>A queue works like a line at a store - the first person in line is the first person served. This "First-In-First-Out" (FIFO) behavior ensures fairness and order.</p>
+            <p>A queue works like a line at a store - the first person in line is the first person served. This
+                "First-In-First-Out" (FIFO) behavior ensures fairness and order.</p>
 
             <h3>How Queues Work</h3>
-            <p>Think of a line at a coffee shop. New customers join at the back of the line, and the barista serves customers from the front. No cutting in line allowed!</p>
+            <p>Think of a line at a coffee shop. New customers join at the back of the line, and the barista serves
+                customers from the front. No cutting in line allowed!</p>
 
             <h3>Creation</h3>
             <div class="code-block">
@@ -243,7 +253,9 @@ let$ scores := dict{"math" := 95, "science" := 87, "english" := 92}</code></pre>
 
         <section class="section">
             <h2>Linked Lists</h2>
-            <p>Linked lists are dynamic data structures where elements are stored in nodes, and each node contains data and a reference to the next node. Unlike arrays, linked lists don't store elements in contiguous memory locations.</p>
+            <p>Linked lists are dynamic data structures where elements are stored in nodes, and each node contains data
+                and a reference to the next node. Unlike arrays, linked lists don't store elements in contiguous memory
+                locations.</p>
 
             <h3>Creation</h3>
             <div class="code-block">
@@ -281,15 +293,20 @@ let$ scores := dict{"math" := 95, "science" := 87, "english" := 92}</code></pre>
 
         <section class="section">
             <h2>Regular Expressions</h2>
-            <p>Regular expressions (regex) are powerful pattern-matching tools that let you search, validate, and manipulate text. Think of them as a sophisticated "find and replace" system that can recognize complex patterns instead of just exact matches.</p>
+            <p>Regular expressions (regex) are powerful pattern-matching tools that let you search, validate, and
+                manipulate text. Think of them as a sophisticated "find and replace" system that can recognize complex
+                patterns instead of just exact matches.</p>
 
             <h3>What Are Regular Expressions?</h3>
-            <p>Imagine you need to find all email addresses in a document. Instead of searching for each specific email, you can create a pattern that describes what an email looks like: some characters, followed by @, followed by more characters, a dot, and a domain extension.</p>
+            <p>Imagine you need to find all email addresses in a document. Instead of searching for each specific email,
+                you can create a pattern that describes what an email looks like: some characters, followed by @,
+                followed by more characters, a dot, and a domain extension.</p>
 
             <h3>Why Use Regular Expressions?</h3>
             <ul>
                 <li><strong>Pattern Recognition</strong>: Find text that matches a specific format</li>
-                <li><strong>Validation</strong>: Check if input follows required rules (email format, phone numbers)</li>
+                <li><strong>Validation</strong>: Check if input follows required rules (email format, phone numbers)
+                </li>
                 <li><strong>Text Processing</strong>: Extract specific information from large amounts of text</li>
                 <li><strong>Data Cleaning</strong>: Remove or replace unwanted characters or formats</li>
             </ul>
@@ -354,7 +371,8 @@ let$ result := ::rreplace(word_pattern, text, "hi")</code></pre>
 
         <section class="section">
             <h2>Temporal Variables</h2>
-            <p>Temporal variables are a unique feature of Tesseract that automatically maintain a history of their past values. Think of them as variables with built-in memory that remember what they used to be.</p>
+            <p>Temporal variables are a unique feature of Tesseract that automatically maintain a history of their past
+                values. Think of them as variables with built-in memory that remember what they used to be.</p>
 
             <h3>What Makes Temporal Variables Special</h3>
             <ul>
@@ -450,7 +468,7 @@ func$ monitor_system() => {
 
         <section class="section">
             <h2>Choosing the Right Data Structure</h2>
-            
+
             <div class="comparison-table">
                 <h3>Data Structure Comparison</h3>
                 <table>
@@ -511,7 +529,7 @@ func$ monitor_system() => {
 
         <section class="section">
             <h2>Performance Considerations</h2>
-            
+
             <h3>Memory Usage</h3>
             <ul>
                 <li><strong>Lists</strong>: Contiguous memory, good cache performance</li>
@@ -548,4 +566,5 @@ func$ monitor_system() => {
 
     <script src="script.js"></script>
 </body>
+
 </html>
