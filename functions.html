@@ -590,6 +590,23 @@ let$ words := ["hello", "world"]
         </section>
 
         <section class="section">
+            <h2>Random Number Generation</h2>
+
+            <div class="function-ref">
+                <h4><code>::random</code></h4>
+                <p>Generates random numbers within specified constraints.</p>
+                <div class="code-block">
+                    <pre><code>::random(start, end)           # Random number between start and end (increment = 1)
+::random(start, end, increment) # Random number with custom increment
+
+::random(1, 10)        # Random integer between 1 and 10
+::random(0, 20, 2)     # Random even number between 0 and 20
+::random(1, 5, 0.5)    # Random number: 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, or 5</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
             <h2>Regular Expression Functions</h2>
 
             <div class="function-ref">
@@ -749,6 +766,13 @@ let$ words := ["hello", "world"]
                         <li><code>::rmatch</code> - Test pattern match</li>
                         <li><code>::rfind_all</code> - Find all matches</li>
                         <li><code>::rreplace</code> - Replace matches</li>
+                    </ul>
+                </div>
+
+                <div class="ref-category">
+                    <h3>Random Numbers</h3>
+                    <ul>
+                        <li><code>::random</code> - Generate random numbers</li>
                     </ul>
                 </div>
             </div>
