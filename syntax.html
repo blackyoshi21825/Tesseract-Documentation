@@ -425,6 +425,51 @@ let$age := 25
         </section>
 
         <section class="section">
+            <h2>Type Checking</h2>
+            <p>Tesseract provides built-in type checking functionality to determine the type of any variable at runtime.</p>
+
+            <h3>Type Function</h3>
+            <div class="code-block">
+                <pre><code>::type(variable)  # returns the type of a variable as a string</code></pre>
+            </div>
+
+            <h3>Type Checking Examples</h3>
+            <div class="code-block">
+                <pre><code>let$ x := 42
+::print ::type(x)        # prints "int"
+
+let$ name := "Tesseract"
+::print ::type(name)     # prints "string"
+
+let$ pi := 3.14159
+::print ::type(pi)       # prints "float"
+
+let$ active := true
+::print ::type(active)   # prints "bool"</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>UNDEF (Null) Values</h2>
+            <p>UNDEF represents undefined or null values in Tesseract. Variables can be explicitly set to UNDEF or automatically become UNDEF when accessed without assignment.</p>
+
+            <h3>Explicit UNDEF Assignment</h3>
+            <div class="code-block">
+                <pre><code>let$ x := UNDEF    # assigns undefined value
+::print x          # prints "UNDEF"
+::type(x)          # returns "undef"</code></pre>
+            </div>
+
+            <h3>Automatic UNDEF Creation</h3>
+            <p>Variables are automatically UNDEF when accessed without assignment:</p>
+            <div class="code-block">
+                <pre><code># Variables are automatically UNDEF when accessed without assignment
+::print undefined_var  # prints "UNDEF" (auto-created)
+::type(undefined_var)  # returns "undef"</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
             <h2>Sets</h2>
             <p>Sets are collections that automatically remove duplicate values. They're useful when you need to store unique items or perform set operations.</p>
 
