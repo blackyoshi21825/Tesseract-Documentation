@@ -326,6 +326,28 @@ foreach$row in matrix {
     }
 }</code></pre>
             </div>
+
+            <h3>Loop Control Statements</h3>
+            <p>Loop control statements allow you to alter the normal flow of loop execution.</p>
+
+            <h4>Break and Continue</h4>
+            <div class="code-block">
+                <pre><code>// Break - exits the current loop
+loop$i := 1 => 10 {
+    if$ i == 5 {
+        break$;
+    }
+    ::print i  // prints 1, 2, 3, 4
+}
+
+// Continue - skips to next iteration
+loop$i := 1 => 5 {
+    if$ i == 3 {
+        continue$;
+    }
+    ::print i  // prints 1, 2, 4, 5
+}</code></pre>
+            </div>
         </section>
 
         <section class="section">
